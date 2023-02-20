@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1cb0f6"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:paddingVertical="@dimen/_8sdp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_toStartOf="@+id/ly_icon"
+        app:cardCornerRadius="@dimen/_7sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:src="@drawable/ic_baseline_search_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Cari Materi"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/ly_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaderboard"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

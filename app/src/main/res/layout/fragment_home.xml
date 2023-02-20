@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
+
+    <include layout="@layout/layout_home_toolbar"/>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/layout_home_member"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="4"
+                tools:itemCount="8"
+                tools:listitem="@layout/item_home_materi" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tantangan"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:text="Lihat Semua"-->
+<!--                    android:textSize="@dimen/_13sdp"-->
+<!--                    android:textStyle="bold" />-->
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tantangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:spanCount="4"
+                tools:itemCount="8"
+                tools:listitem="@layout/item_home_materi" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
