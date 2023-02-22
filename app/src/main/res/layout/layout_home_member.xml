@@ -79,11 +79,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_poin"
+                        android:id="@+id/tv_coin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:text="229"
+                        android:text="..."
                         android:textStyle="bold"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintStart_toEndOf="@+id/image_poin"
@@ -98,7 +98,7 @@
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/image_poin"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_poin" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_coin" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -119,11 +119,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_member_status"
+                        android:id="@+id/tv_exp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:text="5262"
+                        android:text="..."
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@+id/image_mamber"
@@ -138,7 +138,7 @@
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/image_mamber"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_member_status" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_exp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

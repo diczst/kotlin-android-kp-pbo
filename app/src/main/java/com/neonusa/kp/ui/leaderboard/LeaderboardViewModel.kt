@@ -1,14 +1,14 @@
 package com.neonusa.kp.ui.leaderboard
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.neonusa.kp.data.DummyData
-import com.neonusa.kp.data.model.User
+import androidx.lifecycle.asLiveData
+import com.neonusa.kp.data.DataRepository
 
 class LeaderboardViewModel : ViewModel() {
     // dummy data untuk testing
 //    val listUsers: LiveData<List<User>> = MutableLiveData<List<User>>().apply {
 //        value = DummyData.listUser
 //    }
+    val dataRepository = DataRepository()
+    fun getUsers() = dataRepository.getUsers().asLiveData()
 }

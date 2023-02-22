@@ -5,16 +5,18 @@
       <map>
         <entry key="..\:/begin/KP/app/src/main/res/drawable/home.xml" value="0.1015" />
         <entry key="..\:/begin/KP/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.168" />
+        <entry key="..\:/begin/KP/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.137" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
-        <entry key="..\:/begin/KP/app/src/main/res/layout/fragment_account.xml" value="0.33" />
+        <entry key="..\:/begin/KP/app/src/main/res/layout/activity_update_account.xml" value="0.16" />
+        <entry key="..\:/begin/KP/app/src/main/res/layout/fragment_account.xml" value="1.0" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/fragment_leaderboard.xml" value="0.25" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/item_home_materi.xml" value="0.25" />
-        <entry key="..\:/begin/KP/app/src/main/res/layout/item_leaderboard.xml" value="0.16" />
-        <entry key="..\:/begin/KP/app/src/main/res/layout/layout_home_member.xml" value="0.18" />
+        <entry key="..\:/begin/KP/app/src/main/res/layout/item_leaderboard.xml" value="1.1" />
+        <entry key="..\:/begin/KP/app/src/main/res/layout/layout_home_member.xml" value="0.22" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/layout_home_toolba.xml" value="0.1" />
         <entry key="..\:/begin/KP/app/src/main/res/layout/layout_home_toolbar.xml" value="0.22" />
         <entry key="..\:/begin/KP/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />

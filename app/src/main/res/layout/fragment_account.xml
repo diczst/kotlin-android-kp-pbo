@@ -27,18 +27,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_initials"
+                    <ImageView
+                        android:padding="@dimen/_8sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#1cb0f6"
-                        android:gravity="center"
-                        android:text="DP"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_25sdp"
-                        android:textStyle="bold" />
+                        android:src="@drawable/ic_baseline_person_24"
+                        android:background="#1cb0f6" />
 
                     <ImageView
+                        android:id="@+id/img_profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
@@ -55,16 +52,19 @@
                 android:paddingVertical="@dimen/_5sdp">
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dicky Pratama"
+                    android:text="....."
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_nisn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NISN. 12345678910"
+                    android:text="......"
                     android:textSize="@dimen/_12ssp" />
 
             </LinearLayout>
@@ -98,9 +98,10 @@
         style="@style/TextAppearance.AppCompat.Title"/>
 
     <TextView
+        android:id="@+id/tv_motto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dan pengetahuan itu sendiri adalah kekuatan"/>
+        android:text="...................."/>
 
     <View
         android:id="@+id/line"
@@ -131,34 +132,10 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
+            <ImageView
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
-                app:cardCornerRadius="@dimen/_17sdp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#82d942"
-                        android:gravity="center"
-                        android:text="EXP"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/image_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop" />
-
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+                android:src="@drawable/exp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -168,9 +145,10 @@
                 android:paddingVertical="@dimen/_5sdp">
 
                 <TextView
+                    android:id="@+id/tv_exp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2345"
+                    android:text="....."
                     style="@style/TextAppearance.AppCompat.Title"
                     android:textSize="@dimen/_12ssp" />
 
@@ -228,15 +206,14 @@
                 android:paddingVertical="@dimen/_5sdp">
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/tv_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Perunggu"
+                    android:text="....."
                     style="@style/TextAppearance.AppCompat.Title"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
-                    android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tingkatan"

@@ -16,27 +16,27 @@
         android:theme="@style/Theme.KP"
         tools:targetApi="31">
         <activity
+            android:name=".ui.account.UpdateAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.SplashScreen"
             android:exported="true"
             android:label="@string/app_name">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
-            android:name=".ui.auth.RegisterActivity"
+            android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

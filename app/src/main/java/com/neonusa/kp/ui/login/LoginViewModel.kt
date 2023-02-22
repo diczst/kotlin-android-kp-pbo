@@ -1,4 +1,4 @@
-package com.neonusa.kp.ui.auth
+package com.neonusa.kp.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -6,6 +6,6 @@ import com.neonusa.kp.data.DataRepository
 import com.neonusa.kp.data.request.LoginRequest
 
 class LoginViewModel(): ViewModel() {
-    val dataRepository = DataRepository()
+    private val dataRepository = DataRepository()
     fun login(data: LoginRequest) = dataRepository.login(data).asLiveData()
 }

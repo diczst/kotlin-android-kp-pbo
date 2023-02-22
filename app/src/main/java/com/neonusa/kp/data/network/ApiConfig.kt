@@ -1,4 +1,4 @@
-package com.example.ppllapasfix.data.network
+package com.neonusa.kp.data.network
 
 import com.google.gson.GsonBuilder
 import com.neonusa.kp.data.network.ApiService
@@ -10,7 +10,9 @@ import java.util.concurrent.TimeUnit
 
 object ApiConfig {
     // akses api sebagai client
-    const val BASE_URL = "http://192.168.43.181/pebeo/public/api/"
+    private val BASE_URL = "http://192.168.43.181/pebeo/public/api/" // ini kalau pakai hotspot euler
+//    const val BASE_URL = "http://10.102.14.17/pebeo/public/api/" // ini kalau pakai wifi unib
+
 
     // sebagai server : localhost:8080/
 

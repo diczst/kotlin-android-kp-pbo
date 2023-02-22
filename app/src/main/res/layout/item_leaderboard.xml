@@ -9,6 +9,7 @@
     android:gravity="center_horizontal">
 
     <RelativeLayout
+        android:id="@+id/item_layout"
         android:padding="@dimen/_8sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,23 +51,19 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_12sdp"
-                app:cardCornerRadius="@dimen/_25sdp">
+                app:cardCornerRadius="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_8sdp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_initials"
+                    <ImageView
+                        android:padding="@dimen/_8sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#1cb0f6"
-                        android:gravity="center"
-                        android:text="DP"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold" />
+                        android:src="@drawable/ic_baseline_person_24"
+                        android:background="#1cb0f6" />
 
                     <ImageView
                         android:id="@+id/img_profile"
@@ -78,7 +75,8 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
+
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -91,9 +89,11 @@
                         android:layout_height="wrap_content"
                         android:text="Dicky Pratama"
                         android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tv_rank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Emas"/>

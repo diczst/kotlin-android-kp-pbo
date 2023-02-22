@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".ui.auth.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,15 @@
         android:orientation="vertical"
         android:padding="@dimen/_15sdp">
 
-        <ImageView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginBottom="@dimen/_25sdp"
-            android:background="@android:color/darker_gray" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_32sdp"
+            android:gravity="center"
+            android:textSize="@dimen/_16sdp"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:text="Aplikasi Pembelajaran Pemrograman Berorientasi Objek"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

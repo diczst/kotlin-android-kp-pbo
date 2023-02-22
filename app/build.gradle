@@ -63,4 +63,8 @@ dependencies {
 
     implementation 'com.github.techinessoverloaded:progress-dialog:1.5.1'
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.github.Drjacky:ImagePicker:2.1.11'
+
 }

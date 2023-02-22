@@ -8,7 +8,7 @@ import com.chibatching.kotpref.Kotpref
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.MainActivity
 import com.neonusa.kp.R
-import com.neonusa.kp.ui.auth.LoginActivity
+import com.neonusa.kp.ui.login.LoginActivity
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

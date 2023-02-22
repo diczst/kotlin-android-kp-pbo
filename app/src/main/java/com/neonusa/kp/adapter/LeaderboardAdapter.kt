@@ -4,14 +4,22 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.R
 import com.neonusa.kp.data.model.User
 import com.neonusa.kp.databinding.ItemLeaderboardBinding
+import com.squareup.picasso.Picasso
 import kotlin.coroutines.coroutineContext
 
 @SuppressLint("NotifyDataSetChanged")
 class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
+    private val BASE_URL = "http://192.168.43.181/pebeo/public" // ini kalau pakai hotspot euler
+//    private val BASE_URL = "http://10.102.14.17/pebeo/public" // ini kalau pakai wifi unib
+
+    private val USER_URL = "$BASE_URL/storage/user/"
+
     private var data = ArrayList<User>()
 
     fun addItems(items: List<User>) {
@@ -27,12 +35,34 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
                     0 -> tvNo.setBackgroundColor(Color.parseColor("#fed540"))
                     1 -> tvNo.setBackgroundColor(Color.parseColor("#c2d1dd"))
                     2 -> tvNo.setBackgroundColor(Color.parseColor("#d6aa82"))
+                }
 
+                if(item.id == Kotpreference.getUser()?.id){
+                    itemLayout.setBackgroundColor(Color.parseColor("#F7F7F7"))
+                    tvName.setTextColor(Color.parseColor("#1cb0f6"))
                 }
 
                 tvNo.text = (position + 1).toString()
-                tvName.text = item.nama
-//                imgProfile.setImageResource(item.image!!)
+
+                if(item.image != null){
+                    Picasso.get().load(USER_URL + item.image).into(imgProfile)
+                }
+
+                tvName.text = item.nama_lengkap
+
+                if(item.exp?.toInt()!! < 300){
+                    tvRank.text = "Perunggu"
+                }
+
+                if(item.exp?.toInt() in 300..700){
+                    tvRank.text = "Perak"
+                }
+
+                if(item.exp?.toInt() in 701..1000){
+                    tvRank.text = "Emas"
+                }
+
+                tvExp.text = "Exp. ${item.exp}"
             }
         }
     }

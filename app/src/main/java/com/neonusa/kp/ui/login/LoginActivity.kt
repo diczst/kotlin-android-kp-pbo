@@ -1,4 +1,4 @@
-package com.neonusa.kp.ui.auth
+package com.neonusa.kp.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +9,11 @@ import com.neonusa.kp.MainActivity
 import com.neonusa.kp.data.network.Resource.State
 import com.neonusa.kp.data.request.LoginRequest
 import com.neonusa.kp.databinding.ActivityLoginBinding
+import com.neonusa.kp.ui.register.RegisterActivity
+import com.techiness.progressdialoglibrary.ProgressDialog
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var progressDialog: ProgressDialog
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
 
@@ -18,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        progressDialog = ProgressDialog(this)
 
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
@@ -49,19 +53,19 @@ class LoginActivity : AppCompatActivity() {
         viewModel.login(body).observe(this){
             when(it.state){
                 State.SUCCESS -> {
-//                    progressDialog.dismiss()
-                    Toast.makeText(this, "Selamat datang : ${it.data?.nama}", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+                    Toast.makeText(this, "Selamat datang : ${it.data?.nama_lengkap}", Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
                 State.ERROR -> {
-//                    progressDialog.dismiss()
+                    progressDialog.dismiss()
                     Toast.makeText(this, it.message ?: "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                 }
                 State.LOADING -> {
-//                    progressDialog.show();
+                    progressDialog.show();
                 }
             }
         }
