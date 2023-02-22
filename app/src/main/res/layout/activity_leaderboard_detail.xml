@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profil Saya"
+        android:text="Informasi Akun"
         android:gravity="center"
         style="@style/TextAppearance.AppCompat.Title"
         />
@@ -80,13 +80,7 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/btn_update"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_edit_24" />
+
 
     </RelativeLayout>
 
@@ -235,14 +229,14 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:backgroundTint="#fc4848"
-        android:text="Keluar Akun" />
+<!--    <Button-->
+<!--        android:id="@+id/btn_logout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginTop="@dimen/_30sdp"-->
+<!--        android:backgroundTint="#fc4848"-->
+<!--        android:text="Keluar Akun" />-->
 
 
 </LinearLayout>

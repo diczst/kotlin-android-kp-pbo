@@ -1,15 +1,18 @@
 package com.neonusa.kp.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.R
 import com.neonusa.kp.data.model.User
 import com.neonusa.kp.databinding.ItemLeaderboardBinding
+import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
 import com.squareup.picasso.Picasso
 import kotlin.coroutines.coroutineContext
 
@@ -40,6 +43,12 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
                 if(item.id == Kotpreference.getUser()?.id){
                     itemLayout.setBackgroundColor(Color.parseColor("#F7F7F7"))
                     tvName.setTextColor(Color.parseColor("#1cb0f6"))
+                } else {
+                    this.root.setOnClickListener {
+                        val intent = Intent(root.context, LeaderboardDetailActivity::class.java)
+                        intent.putExtra(LeaderboardDetailActivity.USER_ID, item.id)
+                        root.context.startActivity(intent)
+                    }
                 }
 
                 tvNo.text = (position + 1).toString()

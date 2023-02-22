@@ -9,6 +9,8 @@ class LeaderboardViewModel : ViewModel() {
 //    val listUsers: LiveData<List<User>> = MutableLiveData<List<User>>().apply {
 //        value = DummyData.listUser
 //    }
+
     val dataRepository = DataRepository()
     fun getUsers() = dataRepository.getUsers().asLiveData()
+    fun getDataUser(id:String?) = dataRepository.getDataUser(id).asLiveData()
 }
