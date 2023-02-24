@@ -1,11 +1,14 @@
 package com.neonusa.kp.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neonusa.kp.data.model.Materi
 import com.neonusa.kp.databinding.ItemHomeMateriBinding
+import com.neonusa.kp.ui.detailmateri.DetailMateriActivity
+import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
 import com.squareup.picasso.Picasso
 
 @SuppressLint("NotifyDataSetChanged")
@@ -31,6 +34,12 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
 
                 if(item.image != null){
                     Picasso.get().load(USER_URL + item.image).into(img)
+                }
+
+                this.root.setOnClickListener{
+                    val intent = Intent(root.context, DetailMateriActivity::class.java)
+                    intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
+                    root.context.startActivity(intent)
                 }
             }
         }

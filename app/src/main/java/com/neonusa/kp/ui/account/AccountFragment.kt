@@ -60,7 +60,6 @@ class AccountFragment : Fragment() {
                     requireActivity().finish()
                     Toast.makeText(requireActivity(), "Berhasil keluar akun", Toast.LENGTH_LONG).show()
                 }
-
             }
         }
 

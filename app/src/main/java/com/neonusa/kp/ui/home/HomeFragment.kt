@@ -32,6 +32,11 @@ class HomeFragment : Fragment() {
         progressDialog = ProgressDialog(requireActivity())
     }
 
+    override fun onResume() {
+        super.onResume()
+        getInformasiUser()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

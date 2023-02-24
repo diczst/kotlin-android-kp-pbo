@@ -5,6 +5,7 @@ import com.neonusa.kp.data.network.ApiConfig
 import com.neonusa.kp.data.network.ApiService
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.LoginRequest
+import com.neonusa.kp.data.request.SelesaiMateriRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
 import com.neonusa.kp.getErrorBody
 import kotlinx.coroutines.flow.flow
@@ -141,6 +142,46 @@ class DataRepository {
                     val body = it.body()
                     val data = body?.data
                     emit(Resource.success(data))
+                } else {
+                    emit(Resource.error(it.getErrorBody()?.message ?: "Default error dongs", null))
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
+    fun getDataMateri(id: String?) = flow {
+        emit(Resource.loading(null))
+        try {
+            apiService.getMateri(id).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    val data = body?.data
+                    if(data != null){
+                        emit(Resource.success(data))
+                    } else {
+                        emit(Resource.error("response berhasil tapi data null",null))
+                    }
+
+                } else {
+                    emit(Resource.error(it.getErrorBody()?.message ?: "Default error dongs", null))
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
+    fun selesaiMateri(data: SelesaiMateriRequest) = flow {
+        emit(Resource.loading(null))
+        try {
+            apiService.selesaiMateri(data.id, data).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    val user = body?.data
+                    Kotpreference.setUser(user)
+                    emit(Resource.success(user))
                 } else {
                     emit(Resource.error(it.getErrorBody()?.message ?: "Default error dongs", null))
                 }
