@@ -9,34 +9,10 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        app:cardCornerRadius="@dimen/_25sdp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_initials"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#1cb0f6"
-                android:gravity="center"
-                android:text="CO"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-
-        </RelativeLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="@dimen/_36sdp"
+        android:layout_height="@dimen/_36sdp"/>
 
     <TextView
         android:id="@+id/tv_name"

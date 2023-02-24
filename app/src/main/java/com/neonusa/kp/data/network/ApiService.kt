@@ -1,5 +1,6 @@
 package com.neonusa.kp.data.network
 
+import com.neonusa.kp.data.model.Materi
 import com.neonusa.kp.data.model.User
 import com.neonusa.kp.data.request.LoginRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
@@ -46,4 +47,7 @@ interface ApiService {
 
     @GET("user")
     suspend fun getUsers(): Response<BaseListResponse<User>>
+
+    @GET("materi")
+    suspend fun getMateris(): Response<BaseListResponse<Materi>>
 }

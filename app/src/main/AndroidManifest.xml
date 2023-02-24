@@ -16,6 +16,9 @@
         android:theme="@style/Theme.KP"
         tools:targetApi="31">
         <activity
+            android:name=".DetailMateriActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.leaderboard.LeaderboardDetailActivity"
             android:exported="false" />
         <activity

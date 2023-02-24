@@ -23,7 +23,7 @@
                 layout="@layout/layout_home_member"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_category"
+                android:id="@+id/rv_materi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

@@ -1,13 +1,18 @@
 package com.neonusa.kp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.neonusa.kp.Kotpreference
+import com.neonusa.kp.adapter.LeaderboardAdapter
+import com.neonusa.kp.adapter.MateriAdapter
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.databinding.FragmentHomeBinding
 import com.techiness.progressdialoglibrary.ProgressDialog
@@ -18,6 +23,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var progressDialog: ProgressDialog
+
+    private val materiAdapter = MateriAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +40,12 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.rvMateri.adapter = materiAdapter
+
         getInformasiUser()
+        getMateri()
 
         return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     fun getInformasiUser(){
@@ -62,4 +67,29 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun getMateri() {
+        viewModel.getDataMateri().observe(requireActivity()) {
+            when (it.state) {
+                Resource.State.SUCCESS -> {
+                    val data = it.data ?: emptyList()
+                    materiAdapter.addItems(data)
+                    Log.i("HOMEFRAGMENT", "getMateri: $data")
+                    progressDialog.dismiss()
+
+                    if (!data.isEmpty()) {
+                    }
+                }
+                Resource.State.ERROR -> {
+                    Log.i("StoreAddressActivity", "getData: ${it.message}")
+                    progressDialog.dismiss()
+                }
+                Resource.State.LOADING -> {
+                    progressDialog.show()
+                }
+            }
+        }
+    }
+
+
 }
