@@ -1,23 +1,14 @@
 package com.neonusa.kp.ui.detailmateri
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import android.os.Handler
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.Kotpreference
-import com.neonusa.kp.R
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.SelesaiMateriRequest
-import com.neonusa.kp.data.request.UpdateUserRequest
 import com.neonusa.kp.databinding.ActivityDetailMateriBinding
-import com.neonusa.kp.databinding.ActivityLeaderboardDetailBinding
-import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
-import com.neonusa.kp.ui.leaderboard.LeaderboardViewModel
-import com.neonusa.kp.ui.login.LoginActivity
-import com.squareup.picasso.Picasso
 import com.techiness.progressdialoglibrary.ProgressDialog
 
 class DetailMateriActivity : AppCompatActivity() {
@@ -59,6 +50,12 @@ class DetailMateriActivity : AppCompatActivity() {
         }
 
         getMateriDetail()
+
+        // baru bisa ditekan setelah minimal 1 menit
+        Handler().postDelayed({
+            binding.btnSudah.isEnabled = true
+
+        },3000)
     }
 
     private fun getMateriDetail(){
@@ -84,6 +81,7 @@ class DetailMateriActivity : AppCompatActivity() {
         }
     }
 
+    //todo: kasih minimal waktu baca materi misalnya 3 menit
 
     private fun update() {
         val userId = Kotpreference.getUser()?.id
