@@ -7,7 +7,7 @@ data class User(
     val nisn: String?,
     val no_hp: String?,
     val image: String?, // sementara Int awalnya String
-    val exp: String?,
-    val coin: String?,
+    var exp: Int?,
+    val coin: Int?,
     val motto: String?,
     )

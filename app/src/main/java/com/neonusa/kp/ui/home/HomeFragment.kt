@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.neonusa.kp.Kotpreference
-import com.neonusa.kp.adapter.LeaderboardAdapter
 import com.neonusa.kp.adapter.MateriAdapter
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.databinding.FragmentHomeBinding
@@ -25,6 +22,7 @@ class HomeFragment : Fragment() {
     private lateinit var progressDialog: ProgressDialog
 
     private val materiAdapter = MateriAdapter()
+    private val tantanganAdapter = MateriAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +44,11 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         binding.rvMateri.adapter = materiAdapter
+        binding.rvTantangan.adapter = tantanganAdapter
 
         getInformasiUser()
         getMateri()
+        getTantangan()
 
         return root
     }
@@ -87,6 +87,28 @@ class HomeFragment : Fragment() {
                 }
                 Resource.State.ERROR -> {
                     Log.i("StoreAddressActivity", "getData: ${it.message}")
+                    progressDialog.dismiss()
+                }
+                Resource.State.LOADING -> {
+                    progressDialog.show()
+                }
+            }
+        }
+    }
+
+    fun getTantangan(){
+        viewModel.getDataMateri().observe(requireActivity()){
+            when (it.state) {
+                Resource.State.SUCCESS -> {
+                    val data = it.data ?: emptyList()
+                    tantanganAdapter.addItems(data)
+                    tantanganAdapter.type = "tantangan"
+                    progressDialog.dismiss()
+
+                    if (!data.isEmpty()) {
+                    }
+                }
+                Resource.State.ERROR -> {
                     progressDialog.dismiss()
                 }
                 Resource.State.LOADING -> {

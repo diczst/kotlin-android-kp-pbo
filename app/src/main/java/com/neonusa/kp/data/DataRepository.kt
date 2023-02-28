@@ -190,4 +190,46 @@ class DataRepository {
             emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
         }
     }
+
+    fun getTantangan(id: String?) = flow {
+        emit(Resource.loading(null))
+        try {
+            apiService.getTantangan(id).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    val data = body?.data
+                    if(data != null){
+                        emit(Resource.success(data))
+                    } else {
+                        emit(Resource.error("response berhasil tapi data null",null))
+                    }
+                } else {
+                    emit(Resource.error(it.getErrorBody()?.message ?: "Default error dongs", null))
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
+    fun getSoal(id: String?) = flow {
+        emit(Resource.loading(null))
+        try {
+            apiService.getSoal(id).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    val data = body?.data
+                    if(data != null){
+                        emit(Resource.success(data))
+                    } else {
+                        emit(Resource.error("response berhasil tapi data null",null))
+                    }
+                } else {
+                    emit(Resource.error(it.getErrorBody()?.message ?: "Default error dongs", null))
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
 }

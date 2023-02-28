@@ -88,11 +88,11 @@ class AccountFragment : Fragment() {
                         binding.tvRank.text = "Perunggu"
                     }
 
-                    if(data.exp.toInt() in 300..700){
+                    if(data.exp in 300..700){
                         binding.tvRank.text = "Perak"
                     }
 
-                    if(data.exp.toInt() in 701..1000){
+                    if(data.exp in 701..1000){
                         binding.tvRank.text = "Emas"
                     }
 

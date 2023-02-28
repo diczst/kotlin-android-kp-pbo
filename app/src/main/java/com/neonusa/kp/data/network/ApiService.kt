@@ -1,6 +1,8 @@
 package com.neonusa.kp.data.network
 
 import com.neonusa.kp.data.model.Materi
+import com.neonusa.kp.data.model.Soal
+import com.neonusa.kp.data.model.Tantangan
 import com.neonusa.kp.data.model.User
 import com.neonusa.kp.data.request.LoginRequest
 import com.neonusa.kp.data.request.SelesaiMateriRequest
@@ -62,4 +64,14 @@ interface ApiService {
         @Path("id") int: Int,
         @Body data: SelesaiMateriRequest
     ): Response<BaseSingleResponse<User>>
+
+    @GET("tantangan/{materi_id}")
+    suspend fun getTantangan(
+        @Path("materi_id") id: String? = null
+    ): Response<BaseListResponse<Tantangan>>
+
+    @GET("soal/{tantangan_id}")
+    suspend fun getSoal(
+        @Path("tantangan_id") id: String? = null
+    ): Response<BaseListResponse<Soal>>
 }

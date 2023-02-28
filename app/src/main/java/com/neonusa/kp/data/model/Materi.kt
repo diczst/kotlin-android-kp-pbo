@@ -5,4 +5,5 @@ data class Materi (
         val nama: String?,
         val konten: String?,
         val image: String?,
+        val image_tantangan: String?
 )

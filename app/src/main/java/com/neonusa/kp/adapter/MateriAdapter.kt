@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neonusa.kp.data.model.Materi
 import com.neonusa.kp.databinding.ItemHomeMateriBinding
+import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.neonusa.kp.ui.detailmateri.DetailMateriActivity
-import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
 import com.squareup.picasso.Picasso
 
 @SuppressLint("NotifyDataSetChanged")
@@ -19,6 +19,7 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
     private val USER_URL = "$BASE_URL/storage/user/"
 
     private var data = ArrayList<Materi>()
+    var type = ""
 
     fun addItems(items: List<Materi>) {
         data.clear()
@@ -33,14 +34,28 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                 tvName.text = item.nama
 
                 if(item.image != null){
-                    Picasso.get().load(USER_URL + item.image).into(img)
+                    if(type == "tantangan"){
+                        Picasso.get().load(USER_URL + item.image_tantangan).into(img)
+                    } else {
+                        Picasso.get().load(USER_URL + item.image).into(img)
+                    }
                 }
 
-                this.root.setOnClickListener{
-                    val intent = Intent(root.context, DetailMateriActivity::class.java)
-                    intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
-                    root.context.startActivity(intent)
+                if(type != "tantangan"){
+                    this.root.setOnClickListener{
+                        val intent = Intent(root.context, DetailMateriActivity::class.java)
+                        intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
+                        root.context.startActivity(intent)
+                    }
+                } else {
+
+                    this.root.setOnClickListener {
+                        val intent = Intent(root.context, ChallengesActivity::class.java)
+                        intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
+                        root.context.startActivity(intent)
+                    }
                 }
+
             }
         }
     }

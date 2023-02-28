@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.quiz.QuizActivity">
+    tools:context=".ui.challenge.ChallengeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,11 +48,11 @@
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_question"
             android:layout_alignParentStart="true"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_below="@+id/txt_question"
-            android:layout_marginTop="16dp" >
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp">
 
             <RadioButton
                 android:id="@+id/rd_a"
@@ -64,7 +64,7 @@
                 android:id="@+id/rd_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B"/>
+                android:text="B" />
 
             <RadioButton
                 android:id="@+id/rd_c"
@@ -79,7 +79,6 @@
                 android:text="D" />
 
 
-
         </RadioGroup>
 
         <Button
@@ -88,13 +87,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="24dp"
             android:layout_marginEnd="24dp"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/rounded_btn_next_or_prev"
-            android:textColor="@android:color/white"
-            android:text="Selanjutnya"/>
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="Selanjutnya"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_finish"

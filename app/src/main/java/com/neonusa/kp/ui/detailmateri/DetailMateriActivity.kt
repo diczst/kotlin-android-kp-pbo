@@ -3,6 +3,7 @@ package com.neonusa.kp.ui.detailmateri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.Kotpreference
@@ -85,12 +86,12 @@ class DetailMateriActivity : AppCompatActivity() {
 
     private fun update() {
         val userId = Kotpreference.getUser()?.id
-        val currentExp = Kotpreference.getUser()?.exp?.toInt()
+        val currentExp = Kotpreference.getUser()?.exp
         val totalExp = currentExp?.plus(10)
 
         val body = SelesaiMateriRequest(
             userId ?: 0,
-            totalExp.toString()
+            totalExp
         )
 
         viewModel.selesaiMateri(body).observe(this) {

@@ -8,6 +8,7 @@ import com.chibatching.kotpref.Kotpref
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.MainActivity
 import com.neonusa.kp.R
+import com.neonusa.kp.ui.challenge.ChallengeActivity
 import com.neonusa.kp.ui.login.LoginActivity
 
 class SplashScreen : AppCompatActivity() {
@@ -29,6 +30,10 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+                              // langsung ke halaman kuis
+//                            val intent = Intent(this@SplashScreen, ChallengeActivity::class.java)
+//                            startActivity(intent)
+//                            finish()
 
         },3000)
     }

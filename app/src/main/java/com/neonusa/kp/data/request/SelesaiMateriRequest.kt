@@ -2,5 +2,5 @@ package com.neonusa.kp.data.request
 
 data class SelesaiMateriRequest(
     val id: Int,
-    val exp: String? = null,
+    val exp: Int? = null,
 )

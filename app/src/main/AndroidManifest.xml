@@ -16,7 +16,16 @@
         android:theme="@style/Theme.KP"
         tools:targetApi="31">
         <activity
-            android:name=".QuizActivity"
+            android:name=".ui.challenge.ChallengesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.challenge.ChallengeStudyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.challenge.ChallengeFinishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.challenge.ChallengeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.detailmateri.DetailMateriActivity"
