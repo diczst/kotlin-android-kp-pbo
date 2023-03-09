@@ -5,16 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.neonusa.kp.Kotpreference
-import com.neonusa.kp.R
-import com.neonusa.kp.data.model.User
+import com.neonusa.kp.data.model.Siswa
 import com.neonusa.kp.databinding.ItemLeaderboardBinding
 import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
 import com.squareup.picasso.Picasso
-import kotlin.coroutines.coroutineContext
 
 @SuppressLint("NotifyDataSetChanged")
 class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
@@ -23,15 +19,15 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
 
     private val USER_URL = "$BASE_URL/storage/user/"
 
-    private var data = ArrayList<User>()
+    private var data = ArrayList<Siswa>()
 
-    fun addItems(items: List<User>) {
+    fun addItems(items: List<Siswa>) {
         data.addAll(items)
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val itemBinding: ItemLeaderboardBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(item: User, position: Int) {
+        fun bind(item: Siswa, position: Int) {
             itemBinding.apply {
 
                 when(position){

@@ -1,6 +1,6 @@
 package com.neonusa.kp.data.model
 
-data class User(
+data class Siswa(
     val id: Int?,
     val nama_lengkap: String?,
     val email: String?,

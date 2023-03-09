@@ -1,8 +1,6 @@
 package com.neonusa.kp.data
 
-import com.neonusa.kp.R
 import com.neonusa.kp.data.model.Soal
-import com.neonusa.kp.data.model.User
 
 object DummyData {
 //    val listUser = listOf(

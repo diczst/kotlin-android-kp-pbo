@@ -1,21 +1,18 @@
 package com.neonusa.kp
 
 import com.chibatching.kotpref.KotprefModel
-import com.google.gson.Gson
-import com.google.gson.internal.Primitives
-import com.neonusa.kp.data.model.User
-import java.lang.reflect.Type
+import com.neonusa.kp.data.model.Siswa
 
 object Kotpreference: KotprefModel() {
     var isLogin by booleanPref(false)
     var user by stringPref()
 
-    fun setUser(user: User?){
+    fun setUser(user: Siswa?){
         this.user = user.toJson()
     }
 
-    fun getUser(): User? {
+    fun getUser(): Siswa? {
         if(user.isEmpty()) return null
-        return user.toModel(User::class.java)
+        return user.toModel(Siswa::class.java)
     }
 }

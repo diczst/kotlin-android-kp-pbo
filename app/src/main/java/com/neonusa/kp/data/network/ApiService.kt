@@ -3,7 +3,7 @@ package com.neonusa.kp.data.network
 import com.neonusa.kp.data.model.Materi
 import com.neonusa.kp.data.model.Soal
 import com.neonusa.kp.data.model.Tantangan
-import com.neonusa.kp.data.model.User
+import com.neonusa.kp.data.model.Siswa
 import com.neonusa.kp.data.request.LoginRequest
 import com.neonusa.kp.data.request.SelesaiMateriRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
@@ -18,38 +18,38 @@ interface ApiService {
     @POST("login")
     suspend fun login(
         @Body data: LoginRequest
-    ): Response<BaseSingleResponse<User>>
+    ): Response<BaseSingleResponse<Siswa>>
 
     @Multipart
-    @POST("user")
+    @POST("siswa")
     suspend fun register(
         @Part("nama_lengkap") nik: RequestBody,
         @Part("nisn") nama: RequestBody,
         @Part("no_hp") no_handphone: RequestBody,
         @Part("password") password: RequestBody
-    ): Response<BaseSingleResponse<User>>
+    ): Response<BaseSingleResponse<Siswa>>
 
-    @GET("user/{id}")
+    @GET("siswa/{id}")
     suspend fun getDataUser(
         @Path("id") id: String? = null
-    ): Response<BaseSingleResponse<User>>
+    ): Response<BaseSingleResponse<Siswa>>
 
     // @path harus sama dengan didalam kurawal
-    @PUT("user/{id}")
+    @PUT("siswa/{id}")
     suspend fun updateUser(
         @Path("id") int: Int,
         @Body data: UpdateUserRequest
-    ): Response<BaseSingleResponse<User>>
+    ): Response<BaseSingleResponse<Siswa>>
 
     @Multipart
-    @POST("upload-user/{id}")
+    @POST("upload-siswa/{id}")
     suspend fun uploadUser(
         @Path("id") int: Int?,
         @Part data: MultipartBody.Part? = null
-    ): Response<BaseSingleResponse<User>>
+    ): Response<BaseSingleResponse<Siswa>>
 
-    @GET("user")
-    suspend fun getUsers(): Response<BaseListResponse<User>>
+    @GET("siswa")
+    suspend fun getUsers(): Response<BaseListResponse<Siswa>>
 
     @GET("materi")
     suspend fun getMateris(): Response<BaseListResponse<Materi>>
@@ -63,7 +63,7 @@ interface ApiService {
     suspend fun selesaiMateri(
         @Path("id") int: Int,
         @Body data: SelesaiMateriRequest
-    ): Response<BaseSingleResponse<User>>
+    ): Response<BaseSingleResponse<Siswa>>
 
     @GET("tantangan/{materi_id}")
     suspend fun getTantangan(
