@@ -38,8 +38,8 @@
                 android:visibility="visible"
                 android:layout_marginTop="@dimen/_4sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4"
-                tools:itemCount="8"
+                app:spanCount="3"
+                tools:itemCount="6"
                 tools:listitem="@layout/item_home_materi" />
 
             <TextView
@@ -60,8 +60,8 @@
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 android:layout_marginTop="@dimen/_4sdp"
-                app:spanCount="4"
-                tools:itemCount="8"
+                app:spanCount="3"
+                tools:itemCount="6"
                 tools:listitem="@layout/item_home_materi" />
 
         </LinearLayout>

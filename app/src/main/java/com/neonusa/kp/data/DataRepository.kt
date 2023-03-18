@@ -5,7 +5,7 @@ import com.neonusa.kp.data.network.ApiConfig
 import com.neonusa.kp.data.network.ApiService
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.LoginRequest
-import com.neonusa.kp.data.request.SelesaiMateriRequest
+import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
 import com.neonusa.kp.getErrorBody
 import kotlinx.coroutines.flow.flow
@@ -173,10 +173,10 @@ class DataRepository {
         }
     }
 
-    fun selesaiMateri(data: SelesaiMateriRequest) = flow {
+    fun tambahExp(data: TambahExpRequest) = flow {
         emit(Resource.loading(null))
         try {
-            apiService.selesaiMateri(data.id, data).let {
+            apiService.tambahExp(data.id, data).let {
                 if (it.isSuccessful) {
                     val body = it.body()
                     val user = body?.data

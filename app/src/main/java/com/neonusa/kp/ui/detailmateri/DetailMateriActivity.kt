@@ -3,12 +3,13 @@ package com.neonusa.kp.ui.detailmateri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
+import android.text.Html
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.data.network.Resource
-import com.neonusa.kp.data.request.SelesaiMateriRequest
+import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.databinding.ActivityDetailMateriBinding
 import com.techiness.progressdialoglibrary.ProgressDialog
 
@@ -18,11 +19,6 @@ class DetailMateriActivity : AppCompatActivity() {
     }
 
     private var materiId: Int = 0
-
-    private val BASE_URL = "http://192.168.43.181/pebeo/public" // ini kalau pakai hotspot euler
-//    private val BASE_URL = "http://10.102.14.17/pebeo/public" // ini kalau pakai wifi unib
-
-    private val USER_URL = "$BASE_URL/storage/user/"
 
     private lateinit var binding: ActivityDetailMateriBinding
 
@@ -34,7 +30,7 @@ class DetailMateriActivity : AppCompatActivity() {
         binding = ActivityDetailMateriBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        materiId = intent.getIntExtra(DetailMateriActivity.MATERI_ID,0)
+        materiId = intent.getIntExtra(MATERI_ID,0)
         progressDialog = ProgressDialog(this)
         viewModel = ViewModelProvider(this)[DetailMateriViewModel::class.java]
 
@@ -66,10 +62,7 @@ class DetailMateriActivity : AppCompatActivity() {
                     val data = it.data
                     progressDialog.dismiss()
                     binding.tvNama.text = data?.nama.toString()
-                    binding.tvKonten.text = data?.konten.toString()
-//                    if(data?.image != null){
-//                        Picasso.get().load(USER_URL + data.image).into(binding.imgProfile)
-//                    }
+                    binding.tvKonten.text = HtmlCompat.fromHtml(data?.konten.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
 
                 Resource.State.ERROR -> {
@@ -89,12 +82,12 @@ class DetailMateriActivity : AppCompatActivity() {
         val currentExp = Kotpreference.getUser()?.exp
         val totalExp = currentExp?.plus(10)
 
-        val body = SelesaiMateriRequest(
+        val body = TambahExpRequest(
             userId ?: 0,
             totalExp
         )
 
-        viewModel.selesaiMateri(body).observe(this) {
+        viewModel.tambahExp(body).observe(this) {
             when (it.state) {
                 Resource.State.SUCCESS -> {
                     finish()

@@ -1,6 +1,7 @@
 package com.neonusa.kp.data.network
 
 import com.google.gson.GsonBuilder
+import com.neonusa.kp.Consts
 import com.neonusa.kp.data.network.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,12 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    // akses api sebagai client
-    private val BASE_URL = "http://192.168.43.181/pebeo/public/api/" // ini kalau pakai hotspot euler
-//    const val BASE_URL = "http://10.102.14.17/pebeo/public/api/" // ini kalau pakai wifi unib
-
-
-    // sebagai server : localhost:8080/
+    private const val BASE_URL = Consts.BASE_URL + "/api/"
 
     private val client: Retrofit
         get() {

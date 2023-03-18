@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
                     progressDialog.dismiss()
                     binding.layoutHomeMember.tvCoin.text = data?.coin.toString()
                     binding.layoutHomeMember.tvExp.text = data?.exp.toString()
+                    binding.layoutHomeMember.tvName.text = data?.nama_lengkap.toString()
                 }
 
                 Resource.State.ERROR -> {

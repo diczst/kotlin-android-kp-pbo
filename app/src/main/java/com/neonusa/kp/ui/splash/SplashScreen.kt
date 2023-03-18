@@ -23,7 +23,7 @@ class SplashScreen : AppCompatActivity() {
         Handler().postDelayed({
             if(Kotpreference.isLogin){
                 // rumah halaman utama setelah splashscreen disini
-                val intent = Intent(this@SplashScreen, ChallengeActivity::class.java)
+                val intent = Intent(this@SplashScreen, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

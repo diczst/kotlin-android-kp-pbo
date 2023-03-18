@@ -10,31 +10,75 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.MainActivity
 import com.neonusa.kp.R
 import com.neonusa.kp.data.model.Soal
+import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.databinding.ActivityQuizStudyBinding
 
 class ChallengeStudyActivity : AppCompatActivity() {
 
     companion object {
         const val CHOSEN_ANSWER_EXTRA = "CHOSEN_ANSWER"
+        const val TANTANGAN_ID = "TANTANGAN_ID"
     }
 
     private lateinit var chosenAnswer: IntArray
+    private lateinit var correctAnswer: IntArray
+    var id = 0
 
     private lateinit var viewModel: ChallengeViewModel
     private lateinit var binding: ActivityQuizStudyBinding
     private var questionSequence = 0
-    private var listSoal = ArrayList<Soal>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizStudyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        id = intent.getIntExtra(TANTANGAN_ID,0)
         viewModel = ViewModelProvider(this)[ChallengeViewModel::class.java]
         chosenAnswer = intent.getIntArrayExtra(CHOSEN_ANSWER_EXTRA)!!
-        listSoal.addAll(viewModel.getListSoal())
+//        listSoal.addAll(viewModel.getListSoal())
 
-        showQuestion()
+        viewModel = ViewModelProvider(this)[ChallengeViewModel::class.java]
+        viewModel.getListSoal(id.toString()).observe(this){ resource ->
+            when(resource.state){
+                Resource.State.SUCCESS -> {
+                    showQuestion(resource.data!!)
+                    binding.btnNextStudy.setOnClickListener {
+                        if(questionSequence < resource.data.size - 1){
+//                optionChosen()
+                            questionSequence++
+
+                            if (questionSequence == resource.data.size - 1) {
+//                    binding.btnFinish.visibility = View.VISIBLE
+                            } else {
+//                    binding.btnFinish.visibility = View.INVISIBLE
+                            }
+
+                            showQuestion(resource.data)
+                        }
+                    }
+
+                    binding.btnPrevStudy.setOnClickListener {
+                        if(questionSequence > 0){
+//                optionChosen()
+                            questionSequence--
+
+                            if(questionSequence < resource.data.size - 1){
+//                    binding.btnFinish.visibility = View.INVISIBLE;
+                            }
+                            showQuestion(resource.data)
+                        }
+                    }
+                }
+                Resource.State.LOADING -> {
+
+                }
+                Resource.State.ERROR -> {
+
+                }
+
+            }
+        }
 
         binding.btnGoHome.setOnClickListener {
             MaterialDialog(this).show {
@@ -43,46 +87,19 @@ class ChallengeStudyActivity : AppCompatActivity() {
                 negativeButton(text = "Batal")
                 positiveButton(text = "Ya") {
                     val intent = Intent(this@ChallengeStudyActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-                    finish()
                 }
-            }
-        }
-
-        binding.btnNextStudy.setOnClickListener {
-            if(questionSequence < listSoal.size - 1){
-//                optionChosen()
-                questionSequence++
-
-                if (questionSequence == listSoal.size - 1) {
-//                    binding.btnFinish.visibility = View.VISIBLE
-                } else {
-//                    binding.btnFinish.visibility = View.INVISIBLE
-                }
-
-                showQuestion()
-            }
-        }
-
-        binding.btnPrevStudy.setOnClickListener {
-            if(questionSequence > 0){
-//                optionChosen()
-                questionSequence--
-
-                if(questionSequence < listSoal.size - 1){
-//                    binding.btnFinish.visibility = View.INVISIBLE;
-                }
-                showQuestion()
             }
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showQuestion(){
-        val currentSoal = listSoal[questionSequence]
+    private fun showQuestion(soals: List<Soal>){
+        val currentSoal = soals[questionSequence]
         with(binding){
             radioGroupStudy.clearCheck();
-            txtQuestionNumberStudy.text = "Soal ke-" + (questionSequence + 1) + " dari " + listSoal.size
+            txtQuestionNumberStudy.text = "Soal ke-" + (questionSequence + 1) + " dari " + soals.size
             txtQuestionStudy.text = currentSoal.soal
             txtStudy.text = currentSoal.pembahasan
             rdAStudy.text = currentSoal.option_a

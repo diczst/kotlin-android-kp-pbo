@@ -5,7 +5,7 @@ import com.neonusa.kp.data.model.Soal
 import com.neonusa.kp.data.model.Tantangan
 import com.neonusa.kp.data.model.Siswa
 import com.neonusa.kp.data.request.LoginRequest
-import com.neonusa.kp.data.request.SelesaiMateriRequest
+import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
 import com.neonusa.kp.data.response.BaseListResponse
 import com.neonusa.kp.data.response.BaseSingleResponse
@@ -59,10 +59,10 @@ interface ApiService {
         @Path("id") id: String? = null
     ): Response<BaseSingleResponse<Materi>>
 
-    @POST("selesai-materi/{id}")
-    suspend fun selesaiMateri(
+    @POST("tambah-exp/{id}")
+    suspend fun tambahExp(
         @Path("id") int: Int,
-        @Body data: SelesaiMateriRequest
+        @Body data: TambahExpRequest
     ): Response<BaseSingleResponse<Siswa>>
 
     @GET("tantangan/{materi_id}")

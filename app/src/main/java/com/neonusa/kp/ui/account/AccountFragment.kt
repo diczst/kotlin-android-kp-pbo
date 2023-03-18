@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
+import com.neonusa.kp.Consts
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.data.network.Resource.State
 import com.neonusa.kp.databinding.FragmentAccountBinding
@@ -19,11 +20,6 @@ import com.techiness.progressdialoglibrary.ProgressDialog
 
 
 class AccountFragment : Fragment() {
-    private val BASE_URL = "http://192.168.43.181/pebeo/public" // ini kalau pakai hotspot euler
-//    private val BASE_URL = "http://10.102.14.17/pebeo/public" // ini kalau pakai wifi unib
-
-    private val USER_URL = "$BASE_URL/storage/user/"
-
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AccountViewModel
@@ -82,7 +78,7 @@ class AccountFragment : Fragment() {
                     binding.tvNisn.text = "NISN. ${data?.nisn}"
                     binding.tvMotto.text = data?.motto ?: "Motto belum ditambahkan"
                     binding.tvExp.text = data?.exp.toString()
-                    Picasso.get().load(USER_URL + data?.image).into(binding.imgProfile)
+                    Picasso.get().load("${Consts.BASE_URL}/storage/user/" + data?.image).into(binding.imgProfile)
 
                     if(data?.exp?.toInt()!! < 300){
                         binding.tvRank.text = "Perunggu"
