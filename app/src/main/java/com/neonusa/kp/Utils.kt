@@ -13,7 +13,7 @@ import java.io.File
 import java.lang.reflect.Type
 
 object Consts{
-    const val BASE_URL = "http://10.13.6.61/pebeo/public"
+    const val BASE_URL = "http://192.168.43.181/pebeo/public"
 }
 
 fun <T> String?.toModel(classOfT: Class<T>): T? {

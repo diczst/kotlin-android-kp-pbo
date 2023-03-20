@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -21,20 +21,28 @@
             android:textColor="@color/black"
             android:text="Nama Materi"/>
 
-        <TextView
-            android:id="@+id/tv_konten"
+        <WebView
+            android:id="@+id/webview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:text="Konten"/>
+            android:layout_marginTop="@dimen/_8sdp"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_konten"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="@dimen/_16sdp"-->
+<!--            android:layout_marginTop="@dimen/_8sdp"-->
+<!--            style="@style/TextAppearance.AppCompat.Body1"-->
+<!--            android:text="Konten"/>-->
 
         <Button
             android:id="@+id/btn_sudah"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:text="Sudah dibaca"
             android:enabled="false"
             android:layout_marginHorizontal="@dimen/_16sdp"/>

@@ -62,7 +62,11 @@ class DetailMateriActivity : AppCompatActivity() {
                     val data = it.data
                     progressDialog.dismiss()
                     binding.tvNama.text = data?.nama.toString()
-                    binding.tvKonten.text = HtmlCompat.fromHtml(data?.konten.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+//                    String html = "<html><body><h1>Hello World!</h1></body></html>";
+//                    webView.loadData(html, "text/html", "UTF-8");
+                    binding.webview.loadData(data?.konten.toString(),"text/html","UTF-8")
+//                    binding.tvKonten.text = HtmlCompat.fromHtml(data?.konten.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
 
                 Resource.State.ERROR -> {
