@@ -6,6 +6,7 @@ import com.neonusa.kp.data.model.Siswa
 object Kotpreference: KotprefModel() {
     var isLogin by booleanPref(false)
     var user by stringPref()
+    var level by intPref(1)
 
     fun setUser(user: Siswa?){
         this.user = user.toJson()

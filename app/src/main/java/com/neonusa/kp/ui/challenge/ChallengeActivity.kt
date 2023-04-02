@@ -12,6 +12,7 @@ import com.neonusa.kp.R
 import com.neonusa.kp.data.model.Soal
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.TambahExpRequest
+import com.neonusa.kp.data.request.UpdateCoinRequest
 import com.neonusa.kp.databinding.ActivityQuizBinding
 import com.techiness.progressdialoglibrary.ProgressDialog
 
@@ -193,6 +194,26 @@ class ChallengeActivity : AppCompatActivity() {
             userId ?: 0,
             totalExp
         )
+
+        val body2 = UpdateCoinRequest(
+            userId ?: 0,
+            100
+        )
+
+        viewModel.updateCoin(body2).observe(this){
+            when (it.state) {
+                Resource.State.SUCCESS -> {
+                    progressDialog.dismiss()
+                }
+
+                Resource.State.ERROR -> {
+                    progressDialog.dismiss()
+                }
+                Resource.State.LOADING -> {
+                    progressDialog.show()
+                }
+            }
+        }
 
         viewModel.tambahExp(body).observe(this) {
             when (it.state) {

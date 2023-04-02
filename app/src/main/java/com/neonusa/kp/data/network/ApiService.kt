@@ -6,6 +6,7 @@ import com.neonusa.kp.data.model.Tantangan
 import com.neonusa.kp.data.model.Siswa
 import com.neonusa.kp.data.request.LoginRequest
 import com.neonusa.kp.data.request.TambahExpRequest
+import com.neonusa.kp.data.request.UpdateCoinRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
 import com.neonusa.kp.data.response.BaseListResponse
 import com.neonusa.kp.data.response.BaseSingleResponse
@@ -63,6 +64,12 @@ interface ApiService {
     suspend fun tambahExp(
         @Path("id") int: Int,
         @Body data: TambahExpRequest
+    ): Response<BaseSingleResponse<Siswa>>
+
+    @POST("update-coin/{id}")
+    suspend fun updateCoin(
+        @Path("id") int: Int,
+        @Body data: UpdateCoinRequest
     ): Response<BaseSingleResponse<Siswa>>
 
     @GET("tantangan/{materi_id}")

@@ -6,6 +6,7 @@ import com.neonusa.kp.data.network.ApiService
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.LoginRequest
 import com.neonusa.kp.data.request.TambahExpRequest
+import com.neonusa.kp.data.request.UpdateCoinRequest
 import com.neonusa.kp.data.request.UpdateUserRequest
 import com.neonusa.kp.getErrorBody
 import kotlinx.coroutines.flow.flow
@@ -177,6 +178,24 @@ class DataRepository {
         emit(Resource.loading(null))
         try {
             apiService.tambahExp(data.id, data).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    val user = body?.data
+                    Kotpreference.setUser(user)
+                    emit(Resource.success(user))
+                } else {
+                    emit(Resource.error(it.getErrorBody()?.message ?: "Default error dongs", null))
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
+    fun updateCoin(data: UpdateCoinRequest) = flow {
+        emit(Resource.loading(null))
+        try {
+            apiService.updateCoin(data.id, data).let {
                 if (it.isSuccessful) {
                     val body = it.body()
                     val user = body?.data
