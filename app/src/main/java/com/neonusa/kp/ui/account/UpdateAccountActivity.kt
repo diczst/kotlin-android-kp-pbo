@@ -53,9 +53,10 @@ class UpdateAccountActivity : AppCompatActivity() {
                 edtName.setText(user.nama_lengkap)
                 edtNisn.setText(user.nisn)
                 edtPhone.setText(user.no_hp)
-                edtMotto.setText(user.motto)
 
-//                Picasso.get().load(Constants.USER_URL + user.image).into(binding.imageProfile)
+                edtMotto.setText(user.motto)
+                edtAlamat.setText(user.alamat)
+                edtTtl.setText(user.ttl)
             }
         }
     }
@@ -71,7 +72,8 @@ class UpdateAccountActivity : AppCompatActivity() {
         val body = UpdateUserRequest(
             userId ?: 0,
             binding.edtName.text.toString(),
-            binding.edtMotto.text.toString()
+            binding.edtMotto.text.toString(),
+            binding.edtAlamat.text.toString()
         )
 
         viewModel.update(body).observe(this) {

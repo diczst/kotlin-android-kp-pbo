@@ -65,7 +65,6 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
 //                            negativeButton(text = "Tidak")
 //                            positiveButton(text = "Ya") {
 //                                if(Kotpreference.getUser()?.coin!! >= 100){
-//                                    //todo : kurangi koin siswa jadi -100
 //                                    Toast.makeText(root.context, "Selamat belajar", Toast.LENGTH_SHORT).show()
 //                                } else {
 //                                    Toast.makeText(root.context, "Koin tidak cukup", Toast.LENGTH_SHORT).show()

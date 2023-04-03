@@ -11,8 +11,9 @@ class RegisterViewModel: ViewModel() {
     fun register(        nama_lengkap : RequestBody,
                          nisn: RequestBody,
                          no_hp : RequestBody,
-                         password: RequestBody) =
+                         password: RequestBody,
+                         ttl: RequestBody) =
         dataRepository.register(
-            nama_lengkap, nisn, no_hp,  password
+            nama_lengkap, nisn, no_hp,  password, ttl
         ).asLiveData()
 }

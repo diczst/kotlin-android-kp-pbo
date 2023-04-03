@@ -37,6 +37,12 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
+        if (binding.edtTtl.text!!.isEmpty()){
+            binding.edtTtl.error = "Tempat dan tanggal lahir tidak boleh kosong"
+            binding.edtTtl.requestFocus()
+            return
+        }
+
         if (binding.edtNisn.text!!.isEmpty()){
             binding.edtNisn.error = "NISN tidak boleh kosong"
             binding.edtNisn.requestFocus()
@@ -57,10 +63,11 @@ class RegisterActivity : AppCompatActivity() {
 
         val nisn = binding.edtNisn.text.toString().toRequestBody("text/plain".toMediaType())
         val nama = binding.edtName.text.toString().toRequestBody("text/plain".toMediaType())
+        val ttl = binding.edtTtl.text.toString().toRequestBody("text/plain".toMediaType())
         val hp = binding.edtPhone.text.toString().toRequestBody("text/plain".toMediaType())
         val password = binding.edtPassword.text.toString().toRequestBody("text/plain".toMediaType())
 
-        viewModel.register(nisn, nama, hp, password).observe(this) {
+        viewModel.register(nisn, nama, hp, password,ttl).observe(this) {
             when(it.state){
                 State.SUCCESS -> {
                     progressDialog.dismiss()

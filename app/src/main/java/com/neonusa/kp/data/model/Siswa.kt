@@ -10,4 +10,6 @@ data class Siswa(
     var exp: Int?,
     val coin: Int?,
     val motto: String?,
+    val alamat: String?,
+    val ttl: String?,
     )

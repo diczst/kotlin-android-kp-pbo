@@ -106,33 +106,6 @@ class HomeFragment : Fragment() {
                     tantanganAdapter.type = "tantangan"
                     progressDialog.dismiss()
 
-                    //todo: materi business process
-                    //todo: ^ masuk ke semua mata pelajaran
-
-                    //todo : tambah level materi
-
-                    //todo : tambah jenjang
-                    //todo : smp, sma, smk
-
-                    //todo : switch mata pelajaran
-                    //todo : Pemrograman web perangkat bergerak (pwpb)
-                    //todo : basis data
-                    //todo : tambah varchar di materi
-
-                    //todo : alamat, ttl (melengkapi biodata)
-
-                    //todo : notifikasi jika tidak membuka app
-                    //todo : mengingatkan untuk belajar materi terakhir
-
-                    //todo : quis ambil soal ujian smk (selain yg pbo)
-
-                    //todo: contoh kode program di bawah tantangan
-                    //todo:  sudah membaca langsung ke kuis
-                    //todo: hasil kuis tmbahkan tombol untuk ngarahkan ke
-                    //      contoh kode program
-
-                    //todo: tambahkan sudah dibaca pada contoh kode program
-
                     if (!data.isEmpty()) {
                     }
                 }

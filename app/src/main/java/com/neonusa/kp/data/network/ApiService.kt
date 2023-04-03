@@ -27,7 +27,8 @@ interface ApiService {
         @Part("nama_lengkap") nik: RequestBody,
         @Part("nisn") nama: RequestBody,
         @Part("no_hp") no_handphone: RequestBody,
-        @Part("password") password: RequestBody
+        @Part("password") password: RequestBody,
+        @Part("ttl") ttl: RequestBody
     ): Response<BaseSingleResponse<Siswa>>
 
     @GET("siswa/{id}")

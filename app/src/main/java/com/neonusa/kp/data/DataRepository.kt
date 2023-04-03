@@ -39,11 +39,12 @@ class DataRepository {
         nama_lengkap: RequestBody,
         nisn: RequestBody,
         no_hp: RequestBody,
-        password: RequestBody
+        password: RequestBody,
+        ttl: RequestBody
     ) = flow {
         emit(Resource.loading(null))
         try {
-            apiService.register(nisn, nama_lengkap, no_hp, password).let {
+            apiService.register(nisn, nama_lengkap, no_hp, password, ttl).let {
                 if (it.isSuccessful) {
                     Kotpreference.isLogin = true
                     val body = it.body()
