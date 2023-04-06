@@ -118,6 +118,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="24dp"
+            android:enabled="false"
             android:background="@drawable/rounded_btn_next_or_prev"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"

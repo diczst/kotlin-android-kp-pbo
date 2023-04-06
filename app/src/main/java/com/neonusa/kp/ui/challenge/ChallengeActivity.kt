@@ -65,6 +65,9 @@ class ChallengeActivity : AppCompatActivity() {
                                 binding.btnFinish.visibility = View.INVISIBLE
                             }
 
+                            if(questionSequence == 1){
+                                binding.btnPrev.isEnabled = true
+                            }
                             showQuestion(data)
                         }
                     }
@@ -76,6 +79,10 @@ class ChallengeActivity : AppCompatActivity() {
 
                             if(questionSequence < data.size - 1){
                                 binding.btnFinish.visibility = View.INVISIBLE;
+                            }
+
+                            if(questionSequence == 0){
+                                binding.btnPrev.isEnabled = false
                             }
                             showQuestion(data)
                         }

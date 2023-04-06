@@ -1,17 +1,12 @@
 package com.neonusa.kp
-/***
-  todo:
 
-  - tambah level materi
-  - tambah jenjang (sd, smp, sma)
-  - tambah fitur switch mata pelajaran (pwpb dan basis data)
-     tambah varchar di materi
-  - contoh kode program di bawah tantangan
-  - sudah membaca langsung ke kuis
-  - hasil kuis tmbahkan tombol untuk ngarahkan ke
-    contoh kode program
-  - tambahkan sudah dibaca pada contoh kode program
- ***/
+  todo:
+ - tambah jenjang (sd, smp, sma)
+ - tambah fitur switch mata pelajaran (pwpb dan basis data)
+   tambah varchar di materi
 
  done:
  - tambah ttl dan alamat
+ - tambah kolom level ke tabel materi dan modelnya
+ - terapkan level ke materi (jangan langsung dibuka semua materinya)
+ - sudah membaca langsung ke kuis

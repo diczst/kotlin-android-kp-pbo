@@ -82,6 +82,7 @@
                 android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#0B83BC"
                 android:text="Daftar" />
 
         </LinearLayout>

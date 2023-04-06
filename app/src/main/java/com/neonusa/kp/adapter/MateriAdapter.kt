@@ -3,6 +3,7 @@ package com.neonusa.kp.adapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -43,58 +44,47 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                     }
                 }
 
-                this.root.setOnClickListener {
-                    if(type != "tantangan"){
-                        val intent = Intent(root.context, DetailMateriActivity::class.java)
-                        intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
-                        root.context.startActivity(intent)
-                    } else {
-                        val intent = Intent(root.context, ChallengesActivity::class.java)
-                        intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
-                        root.context.startActivity(intent)
-                    }
-                }
-
-                // pengembangan lebih lanjut
-//                if(item.id!! > Kotpreference.level){
-//                    this.root.alpha = 0.3F
-//                    this.root.setOnClickListener{
-//                        MaterialDialog(root.context).show {
-//                            title(text = "Terkunci")
-//                            message(text = "Apakah kamu ingin membuka konten ini?")
-//                            negativeButton(text = "Tidak")
-//                            positiveButton(text = "Ya") {
-//                                if(Kotpreference.getUser()?.coin!! >= 100){
-//                                    Toast.makeText(root.context, "Selamat belajar", Toast.LENGTH_SHORT).show()
-//                                } else {
-//                                    Toast.makeText(root.context, "Koin tidak cukup", Toast.LENGTH_SHORT).show()
-//                                }
-////                                Kotpreference.isLogin = false
-////                                val intent = Intent(requireActivity(), LoginActivity::class.java)
-////                                startActivity(intent)
-////                                requireActivity().finish()
-////                                Toast.makeText(requireActivity(), "Berhasil keluar akun", Toast.LENGTH_LONG).show()
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    this.root.setOnClickListener {
-//                        if(type != "tantangan"){
-//                            val intent = Intent(root.context, DetailMateriActivity::class.java)
-//                            intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
-//                            root.context.startActivity(intent)
-//                        } else {
-//                            val intent = Intent(root.context, ChallengesActivity::class.java)
-//                            intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
-//                            root.context.startActivity(intent)
-//                        }
+//                this.root.setOnClickListener {
+//                    if(type != "tantangan"){
+//                        val intent = Intent(root.context, DetailMateriActivity::class.java)
+//                        intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
+//                        root.context.startActivity(intent)
+//                    } else {
+//                        val intent = Intent(root.context, ChallengesActivity::class.java)
+//                        intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
+//                        root.context.startActivity(intent)
 //                    }
 //                }
 
+                if(Kotpreference.level >= item.level!!){
+                    tvName.alpha = 1F
+                    img.alpha = 1F
+                    imgLock.visibility = View.GONE
 
-
-
-
+                    this.root.setOnClickListener {
+                        if(type != "tantangan"){
+                            val intent = Intent(root.context, DetailMateriActivity::class.java)
+                            intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
+                            root.context.startActivity(intent)
+                        } else {
+                            val intent = Intent(root.context, ChallengesActivity::class.java)
+                            intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
+                            root.context.startActivity(intent)
+                        }
+                    }
+                } else {
+                    tvName.alpha = 0.3F
+                    img.alpha = 0.3F
+                    imgLock.visibility = View.VISIBLE
+                    this.root.setOnClickListener {
+                        MaterialDialog(root.context).show {
+                            title(text = "Terkunci")
+                            message(text = "Selesaikan tantangan pada materi sebelumnya untuk membuka materi ini")
+                            positiveButton(text = "Ok") {
+                            }
+                        }
+                    }
+                }
             }
         }
     }

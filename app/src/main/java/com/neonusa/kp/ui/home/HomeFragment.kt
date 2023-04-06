@@ -49,7 +49,6 @@ class HomeFragment : Fragment() {
         getInformasiUser()
         getMateri()
         getTantangan()
-
         return root
     }
 

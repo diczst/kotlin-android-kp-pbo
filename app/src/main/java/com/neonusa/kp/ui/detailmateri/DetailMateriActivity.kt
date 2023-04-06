@@ -1,5 +1,7 @@
 package com.neonusa.kp.ui.detailmateri
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +13,7 @@ import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.databinding.ActivityDetailMateriBinding
+import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.techiness.progressdialoglibrary.ProgressDialog
 
 class DetailMateriActivity : AppCompatActivity() {
@@ -37,7 +40,7 @@ class DetailMateriActivity : AppCompatActivity() {
         binding.btnSudah.setOnClickListener {
             MaterialDialog(this).show {
                 title(text = "Sudah Dibaca")
-                message(text = "Tandai sebagai sudah dibaca? Kamu akan mendapatkan +10exp")
+                message(text = "Tandai sebagai sudah dibaca? Kamu akan mendapatkan +10 exp dan dialihkan ke halaman tantangan")
                 negativeButton(text = "Tidak")
                 positiveButton(text = "Ya") {
                     update()
@@ -55,6 +58,7 @@ class DetailMateriActivity : AppCompatActivity() {
         },3000)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun getMateriDetail(){
         viewModel.getDataMateri(materiId.toString()).observe(this){
             when(it.state){
@@ -65,7 +69,9 @@ class DetailMateriActivity : AppCompatActivity() {
 
 //                    String html = "<html><body><h1>Hello World!</h1></body></html>";
 //                    webView.loadData(html, "text/html", "UTF-8");
+                    binding.webview.settings.javaScriptEnabled = true;
                     binding.webview.loadData(data?.konten.toString(),"text/html","UTF-8")
+//                    binding.webview.loadData("<html><pre><code>public static void main</code></pre></html>","text/html","UTF-8")
 //                    binding.tvKonten.text = HtmlCompat.fromHtml(data?.konten.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
 
@@ -95,6 +101,9 @@ class DetailMateriActivity : AppCompatActivity() {
             when (it.state) {
                 Resource.State.SUCCESS -> {
                     finish()
+                    val intent = Intent(this@DetailMateriActivity, ChallengesActivity::class.java)
+                    intent.putExtra(ChallengesActivity.MATERI_ID, materiId)
+                    startActivity(intent)
                 }
 
                 Resource.State.ERROR -> {
