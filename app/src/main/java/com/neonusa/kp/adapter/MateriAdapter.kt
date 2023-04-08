@@ -69,6 +69,7 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                         } else {
                             val intent = Intent(root.context, ChallengesActivity::class.java)
                             intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
+                            intent.putExtra(ChallengesActivity.MATERI_LEVEL, item.level)
                             root.context.startActivity(intent)
                         }
                     }

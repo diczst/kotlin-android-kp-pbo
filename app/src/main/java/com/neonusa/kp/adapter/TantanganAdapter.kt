@@ -12,6 +12,11 @@ import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
 class TantanganAdapter : RecyclerView.Adapter<TantanganAdapter.ViewHolder>() {
 
     private var data = ArrayList<Tantangan>()
+    private var materi_level = 0
+
+    fun setLevel(level: Int){
+        materi_level = level
+    }
 
     fun addItems(items: List<Tantangan>) {
         data.clear()
@@ -26,6 +31,7 @@ class TantanganAdapter : RecyclerView.Adapter<TantanganAdapter.ViewHolder>() {
                 this.root.setOnClickListener {
                     val intent = Intent(root.context, ChallengeActivity::class.java)
                     intent.putExtra(ChallengeActivity.TANTANGAN_ID, item.id)
+                    intent.putExtra(ChallengeActivity.MATERI_LEVEL, materi_level)
                     root.context.startActivity(intent)
                 }
             }

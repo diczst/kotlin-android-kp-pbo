@@ -80,7 +80,7 @@ class AccountFragment : Fragment() {
                     binding.tvExp.text = data?.exp.toString()
                     Picasso.get().load("${Consts.BASE_URL}/storage/user/" + data?.image).into(binding.imgProfile)
 
-                    if(data?.exp?.toInt()!! < 300){
+                    if(data?.exp!! < 300){
                         binding.tvRank.text = "Perunggu"
                     }
 

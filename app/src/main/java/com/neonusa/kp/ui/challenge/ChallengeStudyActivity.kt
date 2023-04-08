@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.MainActivity
@@ -47,14 +48,12 @@ class ChallengeStudyActivity : AppCompatActivity() {
                         if(questionSequence < resource.data.size - 1){
 //                optionChosen()
                             questionSequence++
-
-                            if (questionSequence == resource.data.size - 1) {
-//                    binding.btnFinish.visibility = View.VISIBLE
-                            } else {
-//                    binding.btnFinish.visibility = View.INVISIBLE
+                            if(questionSequence == 1){
+                                binding.btnPrevStudy.isEnabled = true
                             }
-
                             showQuestion(resource.data)
+                        } else {
+                            Toast.makeText(this, "Sudah berada di pembahasan soal terakhir", Toast.LENGTH_SHORT).show()
                         }
                     }
 
@@ -67,6 +66,10 @@ class ChallengeStudyActivity : AppCompatActivity() {
 //                    binding.btnFinish.visibility = View.INVISIBLE;
                             }
                             showQuestion(resource.data)
+                        }
+
+                        if(questionSequence == 0){
+                            binding.btnPrevStudy.isEnabled = false
                         }
                     }
                 }

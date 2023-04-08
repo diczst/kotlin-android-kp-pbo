@@ -58,9 +58,20 @@ class HomeFragment : Fragment() {
                 Resource.State.SUCCESS -> {
                     val data = it.data
                     progressDialog.dismiss()
-                    binding.layoutHomeMember.tvCoin.text = data?.coin.toString()
                     binding.layoutHomeMember.tvExp.text = data?.exp.toString()
                     binding.layoutHomeMember.tvName.text = data?.nama_lengkap.toString()
+
+                    if(data?.exp!! < 300){
+                        binding.layoutHomeMember.tvRank.text = "Perunggu"
+                    }
+
+                    if(data.exp in 300..700){
+                        binding.layoutHomeMember.tvRank.text = "Perak"
+                    }
+
+                    if(data.exp in 701..1000){
+                        binding.layoutHomeMember.tvRank.text = "Emas"
+                    }
                 }
 
                 Resource.State.ERROR -> {

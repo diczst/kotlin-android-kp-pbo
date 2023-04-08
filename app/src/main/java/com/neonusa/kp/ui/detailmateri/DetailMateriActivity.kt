@@ -2,11 +2,11 @@ package com.neonusa.kp.ui.detailmateri
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.text.Html
-import androidx.core.text.HtmlCompat
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.Kotpreference
@@ -15,6 +15,7 @@ import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.databinding.ActivityDetailMateriBinding
 import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.techiness.progressdialoglibrary.ProgressDialog
+
 
 class DetailMateriActivity : AppCompatActivity() {
     companion object{
@@ -66,13 +67,10 @@ class DetailMateriActivity : AppCompatActivity() {
                     val data = it.data
                     progressDialog.dismiss()
                     binding.tvNama.text = data?.nama.toString()
+//                    binding.webview.settings.javaScriptEnabled = true;
+//                    binding.webview.loadData(data?.konten.toString(),"text/html","UTF-8")
+                    binding.webview.loadDataWithBaseURL("",data?.konten.toString(),"text/html","UTF-8","")
 
-//                    String html = "<html><body><h1>Hello World!</h1></body></html>";
-//                    webView.loadData(html, "text/html", "UTF-8");
-                    binding.webview.settings.javaScriptEnabled = true;
-                    binding.webview.loadData(data?.konten.toString(),"text/html","UTF-8")
-//                    binding.webview.loadData("<html><pre><code>public static void main</code></pre></html>","text/html","UTF-8")
-//                    binding.tvKonten.text = HtmlCompat.fromHtml(data?.konten.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
 
                 Resource.State.ERROR -> {

@@ -3,6 +3,7 @@ package com.neonusa.kp.ui.challenge
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neonusa.kp.adapter.TantanganAdapter
@@ -14,6 +15,7 @@ import com.techiness.progressdialoglibrary.ProgressDialog
 class ChallengesActivity : AppCompatActivity() {
     companion object {
         const val MATERI_ID = "MATERI_ID"
+        const val MATERI_LEVEL = "MATERI_LEVEL"
     }
 
     private lateinit var binding: ActivityChallengesBinding
@@ -23,20 +25,22 @@ class ChallengesActivity : AppCompatActivity() {
     private val tantanganAdapter = TantanganAdapter()
 
     var id = 0
+    var level = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChallengesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        id = intent.getIntExtra(MATERI_ID,0)
+        level = intent.getIntExtra(MATERI_LEVEL,0)
+
         viewModel = ViewModelProvider(this)[ChallengeViewModel::class.java]
         progressDialog = ProgressDialog(this)
 
+        tantanganAdapter.setLevel(level)
         binding.rvChallenge.adapter = tantanganAdapter
         binding.rvChallenge.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-
-        id = intent.getIntExtra(MATERI_ID,0)
 
         getTantangan()
     }

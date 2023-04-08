@@ -1,12 +1,24 @@
 package com.neonusa.kp
 
-  todo:
- - tambah jenjang (sd, smp, sma)
- - tambah fitur switch mata pelajaran (pwpb dan basis data)
-   tambah varchar di materi
+//**
+    todo:
+    app :
+    - tambahkan kolom level di siswa (jangan ngambil dari kotpref soalnya ini lokal kalau hapus data
+      jadi terreset
+    - perbaiki biar bisa upload dan nampilkan gambar lagi di hosting
+
+
+    reminder:
+    bimbingan sama pemlap lagi sebulan lagi aja kalo bisa wkwk (biar gak banyak req)
+
+*/
 
  done:
  - tambah ttl dan alamat
  - tambah kolom level ke tabel materi dan modelnya
  - terapkan level ke materi (jangan langsung dibuka semua materinya)
  - sudah membaca langsung ke kuis
+ - perbaiki tombol selesai di halaman kuis
+ - hapus toast di halaman kuis
+ - disable tombol sebelumnya di pembahasan soal
+ - disable tombol selanjutnya di kuis dan pembahasan soal pada soal terakhir

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
@@ -19,6 +20,7 @@ import com.techiness.progressdialoglibrary.ProgressDialog
 class ChallengeActivity : AppCompatActivity() {
     companion object {
         const val TANTANGAN_ID = "TANTANGAN_ID"
+        const val MATERI_LEVEL = "MATERI_LEVEL"
     }
 
     private lateinit var progressDialog: ProgressDialog
@@ -30,11 +32,14 @@ class ChallengeActivity : AppCompatActivity() {
     private lateinit var chosenAnswer: IntArray
     private lateinit var correctAnswer: IntArray
     var id = 0
+    var level = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
         id = intent.getIntExtra(TANTANGAN_ID,0)
+        level = intent.getIntExtra(MATERI_LEVEL,0)
 
         progressDialog = ProgressDialog(this)
 
@@ -68,7 +73,10 @@ class ChallengeActivity : AppCompatActivity() {
                             if(questionSequence == 1){
                                 binding.btnPrev.isEnabled = true
                             }
+                            
                             showQuestion(data)
+                        } else {
+                            Toast.makeText(this, "Sudah berada di soal terakhir", Toast.LENGTH_SHORT).show()
                         }
                     }
 
@@ -114,6 +122,13 @@ class ChallengeActivity : AppCompatActivity() {
 
                                     if (chosenAnswer[i] == -1) {
                                         notAnswered++;
+                                    }
+                                }
+
+                                if(correctAnswerSum == data.size){
+                                    if(Kotpreference.level <= level){
+                                        Toast.makeText(this@ChallengeActivity, "menambahkan level", Toast.LENGTH_SHORT).show()
+                                        Kotpreference.addLevel(Kotpreference.level)
                                     }
                                 }
 
