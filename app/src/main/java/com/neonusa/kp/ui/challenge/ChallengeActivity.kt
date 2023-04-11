@@ -12,8 +12,9 @@ import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.R
 import com.neonusa.kp.data.model.Soal
 import com.neonusa.kp.data.network.Resource
+import com.neonusa.kp.data.request.AddLevelMateriUserRequest
+import com.neonusa.kp.data.request.AddLevelTantanganUserRequest
 import com.neonusa.kp.data.request.TambahExpRequest
-import com.neonusa.kp.data.request.UpdateCoinRequest
 import com.neonusa.kp.databinding.ActivityQuizBinding
 import com.techiness.progressdialoglibrary.ProgressDialog
 
@@ -21,6 +22,7 @@ class ChallengeActivity : AppCompatActivity() {
     companion object {
         const val TANTANGAN_ID = "TANTANGAN_ID"
         const val MATERI_LEVEL = "MATERI_LEVEL"
+        const val TANTANGAN_TOTAL = "TANTANGAN_TOTAL"
     }
 
     private lateinit var progressDialog: ProgressDialog
@@ -32,33 +34,31 @@ class ChallengeActivity : AppCompatActivity() {
     private lateinit var chosenAnswer: IntArray
     private lateinit var correctAnswer: IntArray
     var id = 0
-    var level = 0
+    var current_level_materi = 0
+    var tantanganTotal = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        id = intent.getIntExtra(TANTANGAN_ID,0)
-        level = intent.getIntExtra(MATERI_LEVEL,0)
-
         progressDialog = ProgressDialog(this)
 
         viewModel = ViewModelProvider(this)[ChallengeViewModel::class.java]
+
+        id = intent.getIntExtra(TANTANGAN_ID,0)
+        current_level_materi = intent.getIntExtra(MATERI_LEVEL,0)
+        tantanganTotal = intent.getIntExtra(TANTANGAN_TOTAL,0)
+
         viewModel.getListSoal(id.toString()).observe(this){
             when (it.state) {
                 Resource.State.SUCCESS -> {
                     val data = it.data ?: emptyList()
-//                    progressDialog.dismiss()
-
-
                     // -1 : belum dijawab
                     // buat array int baru dengan semua elemennya bernilai -1
                     chosenAnswer = IntArray(data.size){-1}
                     correctAnswer = IntArray(data.size){-1}
 
                     showQuestion(data)
-                    Log.i("listSoal[$questionSequence]", "${data} ")
-
                     binding.btnNext.setOnClickListener {
                         if(questionSequence < data.size - 1){
                             optionChosen()
@@ -126,10 +126,10 @@ class ChallengeActivity : AppCompatActivity() {
                                 }
 
                                 if(correctAnswerSum == data.size){
-                                    if(Kotpreference.level <= level){
-                                        Toast.makeText(this@ChallengeActivity, "menambahkan level", Toast.LENGTH_SHORT).show()
-                                        Kotpreference.addLevel(Kotpreference.level)
-                                    }
+//                                    if(Kotpreference.level <= level){
+//                                        Toast.makeText(this@ChallengeActivity, "menambahkan level", Toast.LENGTH_SHORT).show()
+//                                        Kotpreference.addLevel(Kotpreference.level)
+//                                    }
                                 }
 
                                 update(correctAnswerSum * 5)
@@ -150,15 +150,110 @@ class ChallengeActivity : AppCompatActivity() {
                     }
                 }
                 Resource.State.ERROR -> {
-                    Log.i("StoreAddressActivity", "getData: ${it.message}")
 //                    progressDialog.dismiss()
                 }
                 Resource.State.LOADING -> {
-//                    progressDialog.show()
+                    progressDialog.show()
                 }
             }
         }
-//        listSoal.addAll(viewModel.getListSoal())
+    }
+
+    private fun update(exp: Int) {
+        val userId = Kotpreference.getUser()?.id
+        val currentExp = Kotpreference.getUser()?.exp
+        val totalExp = currentExp?.plus(exp)
+
+        val currentLevelTantangan = Kotpreference.getUser()?.level_tantangan
+        val newLevelTantangan = currentLevelTantangan?.plus(1)
+
+        val newLevelMateri = current_level_materi.plus(1)
+
+        val body = TambahExpRequest(
+            userId ?: 0,
+            totalExp
+        )
+
+        val body2 = AddLevelTantanganUserRequest(
+            userId ?: 0,
+            newLevelTantangan
+        )
+
+        val resetLevelTantanganBody = AddLevelTantanganUserRequest(
+            userId ?: 0,
+            1
+        )
+
+        val body3 = AddLevelMateriUserRequest(
+            userId ?: 0,
+            newLevelMateri
+        )
+
+        if(currentLevelTantangan!! < tantanganTotal){
+
+            viewModel.updateLevelTantangan(body2).observe(this){
+                when (it.state) {
+                    Resource.State.SUCCESS -> {
+                        progressDialog.dismiss()
+                    }
+
+                    Resource.State.ERROR -> {
+                        progressDialog.dismiss()
+                    }
+                    Resource.State.LOADING -> {
+                        progressDialog.show()
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(this, "here", Toast.LENGTH_SHORT).show()
+            viewModel.updateLevelMateri(body3).observe(this){
+                when (it.state) {
+                    Resource.State.SUCCESS -> {
+                        progressDialog.dismiss()
+                    }
+
+                    Resource.State.ERROR -> {
+                        progressDialog.dismiss()
+                    }
+                    Resource.State.LOADING -> {
+                        progressDialog.show()
+                    }
+                }
+            }
+
+            // balikkan lagi level tantangan jadi 1
+            viewModel.updateLevelTantangan(resetLevelTantanganBody).observe(this){
+                when (it.state) {
+                    Resource.State.SUCCESS -> {
+                        progressDialog.dismiss()
+                    }
+
+                    Resource.State.ERROR -> {
+                        progressDialog.dismiss()
+                    }
+                    Resource.State.LOADING -> {
+                        progressDialog.show()
+                    }
+                }
+            }
+        }
+
+
+        viewModel.tambahExp(body).observe(this) {
+            when (it.state) {
+                Resource.State.SUCCESS -> {
+                    progressDialog.dismiss()
+                }
+
+                Resource.State.ERROR -> {
+                    progressDialog.dismiss()
+                }
+                Resource.State.LOADING -> {
+                    progressDialog.show()
+                }
+            }
+        }
     }
 
     private fun showQuestion(soals: List<Soal>){
@@ -206,52 +301,5 @@ class ChallengeActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun update(exp: Int) {
-        val userId = Kotpreference.getUser()?.id
-        val currentExp = Kotpreference.getUser()?.exp
-        val totalExp = currentExp?.plus(exp)
-
-        val body = TambahExpRequest(
-            userId ?: 0,
-            totalExp
-        )
-
-        val body2 = UpdateCoinRequest(
-            userId ?: 0,
-            100
-        )
-
-        viewModel.updateCoin(body2).observe(this){
-            when (it.state) {
-                Resource.State.SUCCESS -> {
-                    progressDialog.dismiss()
-                }
-
-                Resource.State.ERROR -> {
-                    progressDialog.dismiss()
-                }
-                Resource.State.LOADING -> {
-                    progressDialog.show()
-                }
-            }
-        }
-
-        viewModel.tambahExp(body).observe(this) {
-            when (it.state) {
-                Resource.State.SUCCESS -> {
-                    progressDialog.dismiss()
-                }
-
-                Resource.State.ERROR -> {
-                    progressDialog.dismiss()
-                }
-                Resource.State.LOADING -> {
-                    progressDialog.show()
-                }
-            }
-        }
-    }
-
 
 }

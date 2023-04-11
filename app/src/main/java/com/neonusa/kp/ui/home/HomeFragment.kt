@@ -46,9 +46,26 @@ class HomeFragment : Fragment() {
         binding.rvMateri.adapter = materiAdapter
         binding.rvTantangan.adapter = tantanganAdapter
 
+        viewModel.getDataUser(Kotpreference.getUser()?.id.toString()).observe(requireActivity()){
+            when(it.state){
+                Resource.State.SUCCESS -> {
+                    val data = it.data
+                    materiAdapter.userMateriLevel = data?.level_materi!!
+
+                    tantanganAdapter.userMateriLevel = data.level_materi!!
+                    tantanganAdapter.userTantanganLevel = data.level_tantangan!!
+                }
+
+                Resource.State.ERROR -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                Resource.State.LOADING -> {
+                }
+            }
+        }
+
         getInformasiUser()
-        getMateri()
-        getTantangan()
+        getMateriDanTantangan()
         return root
     }
 
@@ -57,7 +74,6 @@ class HomeFragment : Fragment() {
             when(it.state){
                 Resource.State.SUCCESS -> {
                     val data = it.data
-                    progressDialog.dismiss()
                     binding.layoutHomeMember.tvExp.text = data?.exp.toString()
                     binding.layoutHomeMember.tvName.text = data?.nama_lengkap.toString()
 
@@ -84,13 +100,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getMateri() {
+    private fun getMateriDanTantangan() {
         viewModel.getDataMateri().observe(requireActivity()) {
             when (it.state) {
                 Resource.State.SUCCESS -> {
                     val data = it.data ?: emptyList()
+
+                    tantanganAdapter.addItems(data)
+                    tantanganAdapter.type = "tantangan"
                     materiAdapter.addItems(data)
-                    Log.i("HOMEFRAGMENT", "getMateri: $data")
                     progressDialog.dismiss()
 
                     if (!data.isEmpty()) {
@@ -107,27 +125,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun getTantangan(){
-        viewModel.getDataMateri().observe(requireActivity()){
-            when (it.state) {
-                Resource.State.SUCCESS -> {
-                    val data = it.data ?: emptyList()
-                    tantanganAdapter.addItems(data)
-                    tantanganAdapter.type = "tantangan"
-                    progressDialog.dismiss()
-
-                    if (!data.isEmpty()) {
-                    }
-                }
-                Resource.State.ERROR -> {
-                    progressDialog.dismiss()
-                }
-                Resource.State.LOADING -> {
-                    progressDialog.show()
-                }
-            }
-        }
-    }
 
 
 }

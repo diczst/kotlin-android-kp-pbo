@@ -8,7 +8,8 @@ data class Siswa(
     val no_hp: String?,
     val image: String?, // sementara Int awalnya String
     var exp: Int?,
-    val coin: Int?,
+    var level_materi: Int?,
+    var level_tantangan: Int?,
     val motto: String?,
     val alamat: String?,
     val ttl: String?,

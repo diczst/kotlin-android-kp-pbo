@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.neonusa.kp.data.DataRepository
 import com.neonusa.kp.data.DummyData
-import com.neonusa.kp.data.request.TambahExpRequest
-import com.neonusa.kp.data.request.UpdateCoinRequest
+import com.neonusa.kp.data.request.*
 
 class ChallengeViewModel: ViewModel() {
     private val dataRepository = DataRepository()
@@ -14,4 +13,10 @@ class ChallengeViewModel: ViewModel() {
     fun getListSoal(tantangan_id: String?) = dataRepository.getSoal(tantangan_id).asLiveData()
     fun tambahExp(data: TambahExpRequest) = dataRepository.tambahExp(data).asLiveData()
     fun updateCoin(data: UpdateCoinRequest) = dataRepository.updateCoin(data).asLiveData()
+
+    // untuk ambil info level user
+    fun getDataUser(id:String?) = dataRepository.getDataUser(id).asLiveData()
+    fun updateLevelTantangan(data: AddLevelTantanganUserRequest) = dataRepository.updateLevelTantanganUser(data).asLiveData()
+    fun updateLevelMateri(data: AddLevelMateriUserRequest) = dataRepository.updateLevelMateriUser(data).asLiveData()
+
 }

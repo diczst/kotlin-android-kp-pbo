@@ -1,22 +1,23 @@
 package com.neonusa.kp.adapter
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.data.model.Tantangan
 import com.neonusa.kp.databinding.ItemChallengeBinding
 import com.neonusa.kp.ui.challenge.ChallengeActivity
-import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
+
 
 class TantanganAdapter : RecyclerView.Adapter<TantanganAdapter.ViewHolder>() {
 
     private var data = ArrayList<Tantangan>()
-    private var materi_level = 0
+    var materiLevel = 0
+    var userTantanganLevel = 0
+    var userMateriLevel = 0
 
-    fun setLevel(level: Int){
-        materi_level = level
-    }
 
     fun addItems(items: List<Tantangan>) {
         data.clear()
@@ -28,11 +29,26 @@ class TantanganAdapter : RecyclerView.Adapter<TantanganAdapter.ViewHolder>() {
         fun bind(item: Tantangan, position: Int) {
             itemBinding.apply {
                 tvName.text = item.nama
-                this.root.setOnClickListener {
-                    val intent = Intent(root.context, ChallengeActivity::class.java)
-                    intent.putExtra(ChallengeActivity.TANTANGAN_ID, item.id)
-                    intent.putExtra(ChallengeActivity.MATERI_LEVEL, materi_level)
-                    root.context.startActivity(intent)
+                if(userTantanganLevel >= item.level!! || (userMateriLevel > materiLevel)){
+                    layoutMain.alpha = 1F
+                    this.root.setOnClickListener {
+                        val intent = Intent(root.context, ChallengeActivity::class.java)
+                        intent.putExtra(ChallengeActivity.TANTANGAN_ID, item.id)
+                        intent.putExtra(ChallengeActivity.MATERI_LEVEL, materiLevel)
+                        intent.putExtra(ChallengeActivity.TANTANGAN_TOTAL, data.size)
+                        root.context.startActivity(intent)
+                        (root.context as Activity).finish()
+                    }
+                } else {
+                    layoutMain.alpha = 0.3F
+                    this.root.setOnClickListener {
+                        MaterialDialog(root.context).show {
+                            title(text = "Terkunci")
+                            message(text = "Selesaikan tantangan sebelumnya untuk membuka tantangan ini")
+                            positiveButton(text = "Ok") {
+                            }
+                        }
+                    }
                 }
             }
         }

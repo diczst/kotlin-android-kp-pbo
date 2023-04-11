@@ -4,10 +4,7 @@ import com.neonusa.kp.data.model.Materi
 import com.neonusa.kp.data.model.Soal
 import com.neonusa.kp.data.model.Tantangan
 import com.neonusa.kp.data.model.Siswa
-import com.neonusa.kp.data.request.LoginRequest
-import com.neonusa.kp.data.request.TambahExpRequest
-import com.neonusa.kp.data.request.UpdateCoinRequest
-import com.neonusa.kp.data.request.UpdateUserRequest
+import com.neonusa.kp.data.request.*
 import com.neonusa.kp.data.response.BaseListResponse
 import com.neonusa.kp.data.response.BaseSingleResponse
 import okhttp3.MultipartBody
@@ -41,6 +38,18 @@ interface ApiService {
     suspend fun updateUser(
         @Path("id") int: Int,
         @Body data: UpdateUserRequest
+    ): Response<BaseSingleResponse<Siswa>>
+
+    @PUT("siswa/{id}")
+    suspend fun updateLevelTantanganUser(
+        @Path("id") int: Int,
+        @Body data: AddLevelTantanganUserRequest
+    ): Response<BaseSingleResponse<Siswa>>
+
+    @PUT("siswa/{id}")
+    suspend fun updateLevelMateriUser(
+        @Path("id") int: Int,
+        @Body data: AddLevelMateriUserRequest
     ): Response<BaseSingleResponse<Siswa>>
 
     @Multipart

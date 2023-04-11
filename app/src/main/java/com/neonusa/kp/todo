@@ -3,10 +3,10 @@ package com.neonusa.kp
 //**
     todo:
     app :
-    - tambahkan kolom level di siswa (jangan ngambil dari kotpref soalnya ini lokal kalau hapus data
-      jadi terreset
     - perbaiki biar bisa upload dan nampilkan gambar lagi di hosting
-
+    - bikin fitur pindah ke tantangan selanjutnya hanja jika semua jawaban benar
+     sama materi suka ke lock semuanya
+    - tambahin animasi sama sound (ini opsional)
 
     reminder:
     bimbingan sama pemlap lagi sebulan lagi aja kalo bisa wkwk (biar gak banyak req)
@@ -22,3 +22,5 @@ package com.neonusa.kp
  - hapus toast di halaman kuis
  - disable tombol sebelumnya di pembahasan soal
  - disable tombol selanjutnya di kuis dan pembahasan soal pada soal terakhir
+ - fix bug tantangan yang semuanya terlock (Done hapus viewmodel pengambilan data pada challengesactivity)
+ - hapus fungsi viewmodel duplikat di homefragment (getMateridanTantangan)

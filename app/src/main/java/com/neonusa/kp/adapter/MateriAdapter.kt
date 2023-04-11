@@ -23,6 +23,8 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
 
     private var data = ArrayList<Materi>()
     var type = ""
+    var userMateriLevel = 0
+    var userTantanganLevel = 0
 
     fun addItems(items: List<Materi>) {
         data.clear()
@@ -56,7 +58,7 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
 //                    }
 //                }
 
-                if(Kotpreference.level >= item.level!!){
+                if(userMateriLevel >= item.level!!){
                     tvName.alpha = 1F
                     img.alpha = 1F
                     imgLock.visibility = View.GONE
@@ -65,11 +67,14 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                         if(type != "tantangan"){
                             val intent = Intent(root.context, DetailMateriActivity::class.java)
                             intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
+                            intent.putExtra(ChallengesActivity.MATERI_LEVEL, item.level)
                             root.context.startActivity(intent)
                         } else {
                             val intent = Intent(root.context, ChallengesActivity::class.java)
                             intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
                             intent.putExtra(ChallengesActivity.MATERI_LEVEL, item.level)
+                            intent.putExtra(ChallengesActivity.MATERI_LEVEL_USER,userMateriLevel)
+                            intent.putExtra(ChallengesActivity.TANTANGAN_LEVEL_USER, userTantanganLevel)
                             root.context.startActivity(intent)
                         }
                     }
