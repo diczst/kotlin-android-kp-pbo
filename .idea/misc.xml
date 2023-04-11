@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_challenges.xml" value="0.9074074074074074" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_detail_materi.xml" value="0.7602040816326531" />
+        <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_leaderboard_detail.xml" value="0.8484848484848485" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_login.xml" value="0.9074074074074074" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_main.xml" value="0.9074074074074074" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_quiz.xml" value="0.9074074074074074" />
@@ -14,6 +15,7 @@
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/activity_update_account.xml" value="0.75" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/fragment_account.xml" value="0.9074074074074074" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/fragment_home.xml" value="0.7222222222222222" />
+        <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/fragment_leaderboard.xml" value="0.9074074074074074" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/item_challenge.xml" value="0.9074074074074074" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/item_home_materi.xml" value="0.7559808612440191" />
         <entry key="..\:/Selain Kuliah/android-dev-projects/KP/app/src/main/res/layout/layout_home_member.xml" value="1.0" />

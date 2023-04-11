@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.R
@@ -17,12 +19,16 @@ import com.neonusa.kp.data.request.AddLevelTantanganUserRequest
 import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.databinding.ActivityQuizBinding
 import com.techiness.progressdialoglibrary.ProgressDialog
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ChallengeActivity : AppCompatActivity() {
     companion object {
         const val TANTANGAN_ID = "TANTANGAN_ID"
         const val MATERI_LEVEL = "MATERI_LEVEL"
         const val TANTANGAN_TOTAL = "TANTANGAN_TOTAL"
+        const val LEVEL_TANTANGAN_USER = "LEVEL_TANTANGAN_USER"
     }
 
     private lateinit var progressDialog: ProgressDialog
@@ -34,8 +40,9 @@ class ChallengeActivity : AppCompatActivity() {
     private lateinit var chosenAnswer: IntArray
     private lateinit var correctAnswer: IntArray
     var id = 0
-    var current_level_materi = 0
-    var tantanganTotal = 0
+    private var current_level_materi = 0
+    private var tantanganTotal = 0
+    private var level_tantangan_user = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +55,18 @@ class ChallengeActivity : AppCompatActivity() {
         id = intent.getIntExtra(TANTANGAN_ID,0)
         current_level_materi = intent.getIntExtra(MATERI_LEVEL,0)
         tantanganTotal = intent.getIntExtra(TANTANGAN_TOTAL,0)
+        level_tantangan_user = intent.getIntExtra(LEVEL_TANTANGAN_USER,0)
+
+        Toast.makeText(this@ChallengeActivity, "{$level_tantangan_user} < $tantanganTotal", Toast.LENGTH_SHORT).show()
 
         viewModel.getListSoal(id.toString()).observe(this){
             when (it.state) {
                 Resource.State.SUCCESS -> {
                     val data = it.data ?: emptyList()
-                    // -1 : belum dijawab
-                    // buat array int baru dengan semua elemennya bernilai -1
+                    /*
+                        -1 : belum dijawab
+                        buat array int baru dengan semua elemennya bernilai -1
+                    */
                     chosenAnswer = IntArray(data.size){-1}
                     correctAnswer = IntArray(data.size){-1}
 
@@ -73,7 +85,6 @@ class ChallengeActivity : AppCompatActivity() {
                             if(questionSequence == 1){
                                 binding.btnPrev.isEnabled = true
                             }
-                            
                             showQuestion(data)
                         } else {
                             Toast.makeText(this, "Sudah berada di soal terakhir", Toast.LENGTH_SHORT).show()
@@ -144,13 +155,18 @@ class ChallengeActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    // loading berhubungan dengan ui jadi pakai lifecycle scope
+                    lifecycleScope.launch {
+                        delay(3000)
+                        progressDialog.dismiss()
+                    }
 
                     //TODO: masih error masukkan data soal dari api
                     if (!data.isEmpty()) {
                     }
                 }
                 Resource.State.ERROR -> {
-//                    progressDialog.dismiss()
+                    progressDialog.dismiss()
                 }
                 Resource.State.LOADING -> {
                     progressDialog.show()
@@ -164,33 +180,22 @@ class ChallengeActivity : AppCompatActivity() {
         val currentExp = Kotpreference.getUser()?.exp
         val totalExp = currentExp?.plus(exp)
 
-        val currentLevelTantangan = Kotpreference.getUser()?.level_tantangan
-        val newLevelTantangan = currentLevelTantangan?.plus(1)
-
+        val newLevelTantangan = level_tantangan_user.plus(1)
         val newLevelMateri = current_level_materi.plus(1)
-
-        val body = TambahExpRequest(
-            userId ?: 0,
-            totalExp
-        )
 
         val body2 = AddLevelTantanganUserRequest(
             userId ?: 0,
             newLevelTantangan
         )
 
-        val resetLevelTantanganBody = AddLevelTantanganUserRequest(
+        // kembalikan level tantangan jadi 1 jika update level materi
+        val body3 = AddLevelMateriUserRequest(
             userId ?: 0,
+            newLevelMateri,
             1
         )
 
-        val body3 = AddLevelMateriUserRequest(
-            userId ?: 0,
-            newLevelMateri
-        )
-
-        if(currentLevelTantangan!! < tantanganTotal){
-
+        if(level_tantangan_user!! < tantanganTotal){
             viewModel.updateLevelTantangan(body2).observe(this){
                 when (it.state) {
                     Resource.State.SUCCESS -> {
@@ -206,24 +211,8 @@ class ChallengeActivity : AppCompatActivity() {
                 }
             }
         } else {
-            Toast.makeText(this, "here", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ChallengeActivity, "here", Toast.LENGTH_SHORT).show()
             viewModel.updateLevelMateri(body3).observe(this){
-                when (it.state) {
-                    Resource.State.SUCCESS -> {
-                        progressDialog.dismiss()
-                    }
-
-                    Resource.State.ERROR -> {
-                        progressDialog.dismiss()
-                    }
-                    Resource.State.LOADING -> {
-                        progressDialog.show()
-                    }
-                }
-            }
-
-            // balikkan lagi level tantangan jadi 1
-            viewModel.updateLevelTantangan(resetLevelTantanganBody).observe(this){
                 when (it.state) {
                     Resource.State.SUCCESS -> {
                         progressDialog.dismiss()
@@ -239,7 +228,14 @@ class ChallengeActivity : AppCompatActivity() {
             }
         }
 
+        tambahExp(userId,totalExp)
+    }
 
+    private fun tambahExp(userId: Int?, totalExp: Int?){
+        val body = TambahExpRequest(
+            userId ?: 0,
+            totalExp
+        )
         viewModel.tambahExp(body).observe(this) {
             when (it.state) {
                 Resource.State.SUCCESS -> {

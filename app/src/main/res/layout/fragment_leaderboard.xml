@@ -42,8 +42,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_36sdp"
         tools:listitem="@layout/item_leaderboard"/>
 
 </LinearLayout>

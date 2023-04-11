@@ -14,7 +14,7 @@ import java.lang.reflect.Type
 
 object Consts{
     // lokal
-     const val BASE_URL = "http://192.168.1.14/pebeo/public"
+     const val BASE_URL = "http://192.168.43.181/pebeo/public"
 
     // web hosting
 //    const val BASE_URL = "https://neonusa.my.id"

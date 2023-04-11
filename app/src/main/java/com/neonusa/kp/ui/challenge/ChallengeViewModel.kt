@@ -12,10 +12,7 @@ class ChallengeViewModel: ViewModel() {
     fun getListTantangan(materi_id: String?) = dataRepository.getTantangan(materi_id).asLiveData()
     fun getListSoal(tantangan_id: String?) = dataRepository.getSoal(tantangan_id).asLiveData()
     fun tambahExp(data: TambahExpRequest) = dataRepository.tambahExp(data).asLiveData()
-    fun updateCoin(data: UpdateCoinRequest) = dataRepository.updateCoin(data).asLiveData()
 
-    // untuk ambil info level user
-    fun getDataUser(id:String?) = dataRepository.getDataUser(id).asLiveData()
     fun updateLevelTantangan(data: AddLevelTantanganUserRequest) = dataRepository.updateLevelTantanganUser(data).asLiveData()
     fun updateLevelMateri(data: AddLevelMateriUserRequest) = dataRepository.updateLevelMateriUser(data).asLiveData()
 

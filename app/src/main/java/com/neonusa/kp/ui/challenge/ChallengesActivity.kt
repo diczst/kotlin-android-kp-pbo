@@ -46,8 +46,8 @@ class ChallengesActivity : AppCompatActivity() {
         userTantanganLevel = intent.getIntExtra(TANTANGAN_LEVEL_USER,0)
 
         tantanganAdapter.materiLevel = materiLevel
-        tantanganAdapter.userTantanganLevel = userMateriLevel
-        tantanganAdapter.userMateriLevel = userTantanganLevel
+        tantanganAdapter.userTantanganLevel = userTantanganLevel
+        tantanganAdapter.userMateriLevel = userMateriLevel
 
         binding.rvChallenge.adapter = tantanganAdapter
         binding.rvChallenge.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

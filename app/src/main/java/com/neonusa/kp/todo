@@ -24,3 +24,6 @@ package com.neonusa.kp
  - disable tombol selanjutnya di kuis dan pembahasan soal pada soal terakhir
  - fix bug tantangan yang semuanya terlock (Done hapus viewmodel pengambilan data pada challengesactivity)
  - hapus fungsi viewmodel duplikat di homefragment (getMateridanTantangan)
+ - kembalikan level tantangan jadi 1 apabila update level materi
+ - fix bug halaman papan peringkat
+
