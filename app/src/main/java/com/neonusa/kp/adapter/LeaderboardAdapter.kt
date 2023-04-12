@@ -6,7 +6,9 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.neonusa.kp.Consts.BASE_URL
 import com.neonusa.kp.Kotpreference
+import com.neonusa.kp.R
 import com.neonusa.kp.data.model.Siswa
 import com.neonusa.kp.databinding.ItemLeaderboardBinding
 import com.neonusa.kp.ui.leaderboard.LeaderboardDetailActivity
@@ -14,16 +16,22 @@ import com.squareup.picasso.Picasso
 
 @SuppressLint("NotifyDataSetChanged")
 class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
-    private val BASE_URL = "http://192.168.43.181/pebeo/public" // ini kalau pakai hotspot euler
-//    private val BASE_URL = "http://10.102.14.17/pebeo/public" // ini kalau pakai wifi unib
-
     private val USER_URL = "$BASE_URL/storage/user/"
 
     private var data = ArrayList<Siswa>()
+    var currentPosition = 0
 
     fun addItems(items: List<Siswa>) {
         data.addAll(items)
         notifyDataSetChanged()
+    }
+
+    fun getCurrentPos(items:List<Siswa>){
+        for ((index, value) in items.withIndex()){
+            if(value.id == Kotpreference.getUser()?.id){
+                currentPosition = index + 1
+            }
+        }
     }
 
     inner class ViewHolder(private val itemBinding: ItemLeaderboardBinding) : RecyclerView.ViewHolder(itemBinding.root) {
@@ -31,14 +39,23 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
             itemBinding.apply {
 
                 when(position){
-                    0 -> tvNo.setBackgroundColor(Color.parseColor("#fed540"))
-                    1 -> tvNo.setBackgroundColor(Color.parseColor("#c2d1dd"))
-                    2 -> tvNo.setBackgroundColor(Color.parseColor("#d6aa82"))
+                    0 -> {
+                        tvNo.setBackgroundColor(Color.parseColor("#fed540"))
+                        tvNo.setTextColor(Color.WHITE)
+                    }
+                    1 -> {
+                        tvNo.setBackgroundColor(Color.parseColor("#c2d1dd"))
+                        tvNo.setTextColor(Color.WHITE)
+                    }
+                    2 -> {
+                        tvNo.setBackgroundColor(Color.parseColor("#d6aa82"))
+                        tvNo.setTextColor(Color.WHITE)
+                    }
                 }
 
                 if(item.id == Kotpreference.getUser()?.id){
-                    itemLayout.setBackgroundColor(Color.parseColor("#F7F7F7"))
-                    tvName.setTextColor(Color.parseColor("#1cb0f6"))
+                    itemLayout.setBackgroundColor(Color.parseColor("#C0EBFF"))
+                    tvName.setTextColor(Color.parseColor("#1899d6"))
                 } else {
                     this.root.setOnClickListener {
                         val intent = Intent(root.context, LeaderboardDetailActivity::class.java)
@@ -55,16 +72,16 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
 
                 tvName.text = item.nama_lengkap
 
-                if(item.exp?.toInt()!! < 300){
-                    tvRank.text = "Perunggu"
+                if(item.exp!! < 300){
+                    tvRank.text = root.context.getString(R.string.perunggu)
                 }
 
-                if(item.exp?.toInt() in 300..700){
-                    tvRank.text = "Perak"
+                if(item.exp in 300..700){
+                    tvRank.text = root.context.getString(R.string.perak)
                 }
 
-                if(item.exp?.toInt() in 701..1000){
-                    tvRank.text = "Emas"
+                if(item.exp in 701..1000){
+                    tvRank.text = root.context.getString(R.string.emas)
                 }
 
                 tvExp.text = "Exp. ${item.exp}"
@@ -76,6 +93,7 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
         return ViewHolder(ItemLeaderboardBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
+
             false)
         )
     }
@@ -86,6 +104,14 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>()
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
 }

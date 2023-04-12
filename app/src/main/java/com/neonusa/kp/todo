@@ -4,13 +4,13 @@ package com.neonusa.kp
     todo:
     app :
     - perbaiki biar bisa upload dan nampilkan gambar lagi di hosting
-    - bikin fitur pindah ke tantangan selanjutnya hanja jika semua jawaban benar
-     sama materi suka ke lock semuanya
-    - tambahin animasi sama sound (ini opsional)
+    - nambahin data aplikasi
+
+    // opsional
+    - masih ada ngebug di halaman utama semua mteri terlock (gara2 ketimpa request api user)
 
     reminder:
     bimbingan sama pemlap lagi sebulan lagi aja kalo bisa wkwk (biar gak banyak req)
-
 */
 
  done:
@@ -26,4 +26,8 @@ package com.neonusa.kp
  - hapus fungsi viewmodel duplikat di homefragment (getMateridanTantangan)
  - kembalikan level tantangan jadi 1 apabila update level materi
  - fix bug halaman papan peringkat
+ - tambahin animasi sama sound (ini opsional)
+ - leaderboard masih ngebug kalo datanya banyak itu emas perak sama perunggu gk cuma di 3 peringkat teratas
+
+
 

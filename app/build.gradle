@@ -67,4 +67,8 @@ dependencies {
 
     implementation 'com.github.Drjacky:ImagePicker:2.1.11'
 
+    //Lottie Animation
+    implementation 'com.airbnb.android:lottie:5.2.0'
+
+
 }

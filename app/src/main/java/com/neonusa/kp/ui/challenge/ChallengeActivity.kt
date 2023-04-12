@@ -29,6 +29,7 @@ class ChallengeActivity : AppCompatActivity() {
         const val MATERI_LEVEL = "MATERI_LEVEL"
         const val TANTANGAN_TOTAL = "TANTANGAN_TOTAL"
         const val LEVEL_TANTANGAN_USER = "LEVEL_TANTANGAN_USER"
+        const val LEVEL_MATERI_USER = "LEVEL_MATERI_USER"
     }
 
     private lateinit var progressDialog: ProgressDialog
@@ -43,6 +44,13 @@ class ChallengeActivity : AppCompatActivity() {
     private var current_level_materi = 0
     private var tantanganTotal = 0
     private var level_tantangan_user = 0
+    private var level_materi_user = 0
+    private var unlockStatus = ""
+
+    var correctAnswerSum = 0
+    var incorrectAnswerSum = 0
+    var notAnswered = 0
+    var totalSoal = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +64,10 @@ class ChallengeActivity : AppCompatActivity() {
         current_level_materi = intent.getIntExtra(MATERI_LEVEL,0)
         tantanganTotal = intent.getIntExtra(TANTANGAN_TOTAL,0)
         level_tantangan_user = intent.getIntExtra(LEVEL_TANTANGAN_USER,0)
+        level_materi_user = intent.getIntExtra(LEVEL_MATERI_USER,0)
 
-        Toast.makeText(this@ChallengeActivity, "{$level_tantangan_user} < $tantanganTotal", Toast.LENGTH_SHORT).show()
+        // untuk debug
+//        Toast.makeText(this@ChallengeActivity, "{$level_tantangan_user} < $tantanganTotal", Toast.LENGTH_SHORT).show()
 
         viewModel.getListSoal(id.toString()).observe(this){
             when (it.state) {
@@ -69,6 +79,7 @@ class ChallengeActivity : AppCompatActivity() {
                     */
                     chosenAnswer = IntArray(data.size){-1}
                     correctAnswer = IntArray(data.size){-1}
+                    totalSoal = data.size
 
                     showQuestion(data)
                     binding.btnNext.setOnClickListener {
@@ -114,9 +125,6 @@ class ChallengeActivity : AppCompatActivity() {
                             negativeButton(text = "Tidak")
                             positiveButton(text = "Ya") {
                                 optionChosen()
-                                var correctAnswerSum = 0
-                                var incorrectAnswerSum = 0
-                                var notAnswered = 0
 
                                 // biar mulai dari i = 0 pakai correctAnswer.indices
                                 for(i in correctAnswer.indices){
@@ -150,6 +158,8 @@ class ChallengeActivity : AppCompatActivity() {
                                 intent.putExtra(ChallengeFinishActivity.EXTRA_UNANSWERED, notAnswered)
                                 intent.putExtra(ChallengeFinishActivity.EXTRA_CHOSEN_ANSWER, chosenAnswer)
                                 intent.putExtra(ChallengeFinishActivity.EXTRA_ID_TANTANGAN, id)
+                                intent.putExtra(ChallengeFinishActivity.EXTRA_TOTAL_SOAL, data.size)
+                                intent.putExtra(ChallengeFinishActivity.UNLOCK_STATUS, unlockStatus)
                                 startActivity(intent)
                                 finish()
                             }
@@ -195,34 +205,43 @@ class ChallengeActivity : AppCompatActivity() {
             1
         )
 
-        if(level_tantangan_user!! < tantanganTotal){
-            viewModel.updateLevelTantangan(body2).observe(this){
-                when (it.state) {
-                    Resource.State.SUCCESS -> {
-                        progressDialog.dismiss()
-                    }
+        // jika user sudah di materi 2 tantangan 1 tapi ia pergi ke materi 1 tantangan 1
+        // jangan update tantangannya
 
-                    Resource.State.ERROR -> {
-                        progressDialog.dismiss()
-                    }
-                    Resource.State.LOADING -> {
-                        progressDialog.show()
-                    }
-                }
-            }
-        } else {
-            Toast.makeText(this@ChallengeActivity, "here", Toast.LENGTH_SHORT).show()
-            viewModel.updateLevelMateri(body3).observe(this){
-                when (it.state) {
-                    Resource.State.SUCCESS -> {
-                        progressDialog.dismiss()
-                    }
+        // update tantangan dan materi hanya jika benar semua
+        if(correctAnswerSum == totalSoal){
+            if(current_level_materi >= level_materi_user){
+                if(level_tantangan_user!! < tantanganTotal){
+                    unlockStatus = "new_tantangan"
+                    viewModel.updateLevelTantangan(body2).observe(this){
+                        when (it.state) {
+                            Resource.State.SUCCESS -> {
+                                progressDialog.dismiss()
+                            }
 
-                    Resource.State.ERROR -> {
-                        progressDialog.dismiss()
+                            Resource.State.ERROR -> {
+                                progressDialog.dismiss()
+                            }
+                            Resource.State.LOADING -> {
+                                progressDialog.show()
+                            }
+                        }
                     }
-                    Resource.State.LOADING -> {
-                        progressDialog.show()
+                } else if(level_tantangan_user == tantanganTotal) {
+                    unlockStatus = "new_materi"
+                    viewModel.updateLevelMateri(body3).observe(this){
+                        when (it.state) {
+                            Resource.State.SUCCESS -> {
+                                progressDialog.dismiss()
+                            }
+
+                            Resource.State.ERROR -> {
+                                progressDialog.dismiss()
+                            }
+                            Resource.State.LOADING -> {
+                                progressDialog.show()
+                            }
+                        }
                     }
                 }
             }

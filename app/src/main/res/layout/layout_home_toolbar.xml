@@ -13,7 +13,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aplikasi Pembelajaran PBO"
+        android:text="Gamakode"
         android:textColor="@color/white"
         android:textSize="@dimen/_18sdp" />
 

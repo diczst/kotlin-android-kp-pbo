@@ -37,6 +37,7 @@ class TantanganAdapter : RecyclerView.Adapter<TantanganAdapter.ViewHolder>() {
                         intent.putExtra(ChallengeActivity.MATERI_LEVEL, materiLevel)
                         intent.putExtra(ChallengeActivity.TANTANGAN_TOTAL, data.size)
                         intent.putExtra(ChallengeActivity.LEVEL_TANTANGAN_USER, userTantanganLevel)
+                        intent.putExtra(ChallengeActivity.LEVEL_MATERI_USER, userMateriLevel)
                         root.context.startActivity(intent)
                         (root.context as Activity).finish()
                     }

@@ -23,7 +23,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                app:cardCornerRadius="@dimen/_12sdp">
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="0dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -33,10 +34,9 @@
                         android:id="@+id/tv_no"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#d3d3d3"
                         android:gravity="center"
                         android:text="1"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -109,8 +109,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:text="Exp. 25670"
-            android:textColor="#82d942" />
+            android:textColor="#52A118" />
 
     </RelativeLayout>
 

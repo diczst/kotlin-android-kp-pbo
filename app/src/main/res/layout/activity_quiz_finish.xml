@@ -7,23 +7,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.challenge.ChallengeFinishActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottiemation"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
     <TextView
-        android:id="@+id/score"
+        android:id="@+id/tv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/lottiemation"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="24dp"
-        android:text="Kampu mendapatkan exp:"
-        android:textColor="#212121"
-        android:textSize="16sp" />
+        android:textAlignment="center"
+        android:textColor="#212121" />
 
     <TextView
         android:id="@+id/txt_score_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/score"
+        android:layout_below="@id/tv_status"
         android:layout_centerInParent="true"
         android:layout_marginTop="16dp"
         android:text="+00.0"

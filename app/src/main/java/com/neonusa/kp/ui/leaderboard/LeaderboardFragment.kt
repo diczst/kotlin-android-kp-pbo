@@ -39,6 +39,7 @@ class LeaderboardFragment : Fragment() {
         binding.rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
 
         getData()
+
         return root
     }
 
@@ -49,8 +50,10 @@ class LeaderboardFragment : Fragment() {
                     val data = it.data ?: emptyList()
                     // tinggal masukin data ke adapternya
                     leaderboardAdapter.addItems(data)
+                    leaderboardAdapter.getCurrentPos(data)
+                    var pos = leaderboardAdapter.currentPosition
+                    binding.tvCurrentPos.text = "Kamu berada di peringkat $pos"
                     progressDialog.dismiss()
-
                     if (data.isEmpty()) {
 //                        binding.tvError.toVisible()
                     }
