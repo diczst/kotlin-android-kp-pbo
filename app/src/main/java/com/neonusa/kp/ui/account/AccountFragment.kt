@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.neonusa.kp.Consts
+import com.neonusa.kp.Consts.BASE_URL
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.data.network.Resource.State
 import com.neonusa.kp.databinding.FragmentAccountBinding
@@ -24,7 +25,7 @@ class AccountFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: AccountViewModel
     private lateinit var progressDialog: ProgressDialog
-
+    private val USER_URL = "$BASE_URL/storage/user/"
 
     override fun onResume() {
         super.onResume()
@@ -78,7 +79,8 @@ class AccountFragment : Fragment() {
                     binding.tvNisn.text = "NISN. ${data?.nisn}"
                     binding.tvMotto.text = data?.motto ?: "Motto belum ditambahkan"
                     binding.tvExp.text = data?.exp.toString()
-                    Picasso.get().load("${Consts.BASE_URL}/storage/user/" + data?.image).into(binding.imgProfile)
+                    Picasso.get().load(USER_URL + data?.image)
+                        .into(binding.imgProfile)
 
                     if(data?.exp!! < 300){
                         binding.tvRank.text = "Perunggu"

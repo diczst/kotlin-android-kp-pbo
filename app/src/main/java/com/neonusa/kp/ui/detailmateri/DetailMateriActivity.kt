@@ -16,7 +16,6 @@ import com.neonusa.kp.databinding.ActivityDetailMateriBinding
 import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.techiness.progressdialoglibrary.ProgressDialog
 
-
 class DetailMateriActivity : AppCompatActivity() {
     companion object{
         const val MATERI_ID = "MATERI_ID"
@@ -69,7 +68,9 @@ class DetailMateriActivity : AppCompatActivity() {
                     binding.tvNama.text = data?.nama.toString()
 //                    binding.webview.settings.javaScriptEnabled = true;
 //                    binding.webview.loadData(data?.konten.toString(),"text/html","UTF-8")
-                    binding.webview.loadDataWithBaseURL("",data?.konten.toString(),"text/html","UTF-8","")
+
+//                    binding.webview.loadDataWithBaseURL("",data?.konten.toString(),"text/html","UTF-8","")
+                    binding.pdfviewer.fromAsset("12rls.pdf").load()
 
                 }
 

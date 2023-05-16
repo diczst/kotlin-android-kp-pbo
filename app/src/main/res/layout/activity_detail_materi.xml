@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.detailmateri.DetailMateriActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/black"
+        android:text="Nama Materi"/>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfviewer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/_8sdp"/>
 
-        <TextView
-            android:id="@+id/tv_nama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/black"
-            android:text="Nama Materi"/>
+    <!--        <TextView-->
+    <!--            android:id="@+id/tv_konten"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginHorizontal="@dimen/_16sdp"-->
+    <!--            android:layout_marginTop="@dimen/_8sdp"-->
+    <!--            style="@style/TextAppearance.AppCompat.Body1"-->
+    <!--            android:text="Konten"/>-->
 
-        <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"/>
+    <Button
+        android:id="@+id/btn_sudah"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:text="Sudah dibaca"
+        android:enabled="false"
+        android:layout_marginHorizontal="@dimen/_16sdp"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_konten"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/_16sdp"-->
-<!--            android:layout_marginTop="@dimen/_8sdp"-->
-<!--            style="@style/TextAppearance.AppCompat.Body1"-->
-<!--            android:text="Konten"/>-->
-
-        <Button
-            android:id="@+id/btn_sudah"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:text="Sudah dibaca"
-            android:enabled="false"
-            android:layout_marginHorizontal="@dimen/_16sdp"/>
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

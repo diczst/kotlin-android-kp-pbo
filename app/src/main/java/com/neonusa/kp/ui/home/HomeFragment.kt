@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
         viewModel.getDataMateri().observe(requireActivity()) {
             when (it.state) {
                 Resource.State.SUCCESS -> {
-                    val data = it.data ?: emptyList()
+                    val data = it.data?.take(9) ?: emptyList()
 
                     tantanganAdapter.addItems(data)
                     tantanganAdapter.type = "tantangan"

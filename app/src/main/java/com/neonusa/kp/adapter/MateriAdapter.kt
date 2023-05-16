@@ -15,6 +15,7 @@ import com.neonusa.kp.databinding.ItemHomeMateriBinding
 import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.neonusa.kp.ui.detailmateri.DetailMateriActivity
 import com.neonusa.kp.ui.login.LoginActivity
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 
 @SuppressLint("NotifyDataSetChanged")
@@ -40,23 +41,13 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
 
                 if(item.image != null){
                     if(type == "tantangan"){
-                        Picasso.get().load(USER_URL + item.image_tantangan).into(img)
+                        Picasso.get()
+                            .load(USER_URL + item.image_tantangan)
+                            .into(img)
                     } else {
-                        Picasso.get().load(USER_URL + item.image).into(img)
+                        Picasso.get().load("$USER_URL" + item.image).into(img)
                     }
                 }
-
-//                this.root.setOnClickListener {
-//                    if(type != "tantangan"){
-//                        val intent = Intent(root.context, DetailMateriActivity::class.java)
-//                        intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
-//                        root.context.startActivity(intent)
-//                    } else {
-//                        val intent = Intent(root.context, ChallengesActivity::class.java)
-//                        intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
-//                        root.context.startActivity(intent)
-//                    }
-//                }
 
                 if(userMateriLevel >= item.level!!){
                     tvName.alpha = 1F

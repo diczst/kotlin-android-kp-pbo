@@ -21,14 +21,30 @@
                 android:id="@+id/layout_home_member"
                 layout="@layout/layout_home_member"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Materi"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Materi"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lihat Semua"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple_500"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    />
+
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_materi"

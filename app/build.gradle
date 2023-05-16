@@ -70,5 +70,8 @@ dependencies {
     //Lottie Animation
     implementation 'com.airbnb.android:lottie:5.2.0'
 
+    // PDFViewer
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
 
 }
