@@ -6,6 +6,6 @@ import com.neonusa.kp.data.DataRepository
 
 class HomeViewModel : ViewModel() {
     private val dataRepository = DataRepository()
-    fun getDataUser(id:String?) = dataRepository.getDataUser(id).asLiveData()
+//    fun getDataUser(id:String?) = dataRepository.getDataUser(id).asLiveData()
     fun getDataMateri() = dataRepository.getMateris().asLiveData()
 }

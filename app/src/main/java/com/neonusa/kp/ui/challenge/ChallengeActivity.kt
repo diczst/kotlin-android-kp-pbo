@@ -211,7 +211,7 @@ class ChallengeActivity : AppCompatActivity() {
         // update tantangan dan materi hanya jika benar semua
         if(correctAnswerSum == totalSoal){
             if(current_level_materi >= level_materi_user){
-                if(level_tantangan_user!! < tantanganTotal){
+                if(level_tantangan_user < tantanganTotal){
                     unlockStatus = "new_tantangan"
                     viewModel.updateLevelTantangan(body2).observe(this){
                         when (it.state) {
@@ -227,12 +227,23 @@ class ChallengeActivity : AppCompatActivity() {
                             }
                         }
                     }
-                } else if(level_tantangan_user == tantanganTotal) {
+
+                    // ADA BUG KALAU NGERJAIN TANTANGAN TERAKHIR DI MATERI PERTAMA SAAT MATERI KEDUA
+                    // SUDAH UNLOCK DUA TANTANGAN
+                    // MATERI KEDUA JADI TERLOCK KEMBALI
+                } else if(level_materi_user == current_level_materi && level_tantangan_user == tantanganTotal) {
                     unlockStatus = "new_materi"
+
+                    // percobaan kembalikan ke nol
+                    Kotpreference.tryCount = 0
+
                     viewModel.updateLevelMateri(body3).observe(this){
                         when (it.state) {
                             Resource.State.SUCCESS -> {
                                 progressDialog.dismiss()
+
+                                // test
+//                                Toast.makeText(this@ChallengeActivity, "${Kotpreference.tryCount}", Toast.LENGTH_SHORT).show()
                             }
 
                             Resource.State.ERROR -> {
@@ -244,6 +255,16 @@ class ChallengeActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }
+        // jika tidak benar semua
+        } else {
+            if(Kotpreference.tryCount < 3){
+                Kotpreference.tryCount++
+
+                // test
+//                Toast.makeText(this@ChallengeActivity, "${Kotpreference.tryCount}", Toast.LENGTH_SHORT).show()
+            } else {
+                Kotpreference.tryCount = 0
             }
         }
 

@@ -5,6 +5,7 @@ import com.neonusa.kp.data.model.Siswa
 
 object Kotpreference: KotprefModel() {
     var isLogin by booleanPref(false)
+    var tryCount by intPref(0)
     var user by stringPref()
 
     fun setUser(user: Siswa?){

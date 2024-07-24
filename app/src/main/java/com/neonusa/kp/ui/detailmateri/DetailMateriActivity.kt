@@ -1,27 +1,33 @@
 package com.neonusa.kp.ui.detailmateri
 
-import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.webkit.WebSettings
-import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
+import com.github.barteksc.pdfviewer.PDFView
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.data.request.TambahExpRequest
 import com.neonusa.kp.databinding.ActivityDetailMateriBinding
 import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.techiness.progressdialoglibrary.ProgressDialog
+import java.io.BufferedInputStream
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
+
 
 class DetailMateriActivity : AppCompatActivity() {
-    companion object{
-        const val MATERI_ID = "MATERI_ID"
-    }
-
-    private var materiId: Int = 0
+    var id = 0
+    var materiLevel = 0
+    var userMateriLevel = 0
+    var userTantanganLevel = 0
+    var materiNama = ""
 
     private lateinit var binding: ActivityDetailMateriBinding
 
@@ -33,7 +39,15 @@ class DetailMateriActivity : AppCompatActivity() {
         binding = ActivityDetailMateriBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        materiId = intent.getIntExtra(MATERI_ID,0)
+        id = intent.getIntExtra(ChallengesActivity.MATERI_ID,0)
+        materiLevel = intent.getIntExtra(ChallengesActivity.MATERI_LEVEL,0)
+        materiNama = intent.getStringExtra(ChallengesActivity.MATERI_NAMA).toString()
+        userMateriLevel = intent.getIntExtra(ChallengesActivity.MATERI_LEVEL_USER,0)
+        userTantanganLevel = intent.getIntExtra(ChallengesActivity.TANTANGAN_LEVEL_USER,0)
+
+        // debug
+//        Toast.makeText(this, "materi level ${materiLevel}\nusertlevel ${userTantanganLevel}\nusermlevel ${userMateriLevel}", Toast.LENGTH_SHORT).show()
+
         progressDialog = ProgressDialog(this)
         viewModel = ViewModelProvider(this)[DetailMateriViewModel::class.java]
 
@@ -58,22 +72,16 @@ class DetailMateriActivity : AppCompatActivity() {
         },3000)
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     private fun getMateriDetail(){
-        viewModel.getDataMateri(materiId.toString()).observe(this){
+        viewModel.getDataMateri(id.toString()).observe(this){
             when(it.state){
                 Resource.State.SUCCESS -> {
                     val data = it.data
                     progressDialog.dismiss()
                     binding.tvNama.text = data?.nama.toString()
-//                    binding.webview.settings.javaScriptEnabled = true;
-//                    binding.webview.loadData(data?.konten.toString(),"text/html","UTF-8")
-
-//                    binding.webview.loadDataWithBaseURL("",data?.konten.toString(),"text/html","UTF-8","")
-                    binding.pdfviewer.fromAsset("12rls.pdf").load()
+                    RetrievePDFFromURL(binding.pdfview).execute("https://neonusa.my.id/storage/pdf/${data?.konten}")
 
                 }
-
                 Resource.State.ERROR -> {
                     progressDialog.dismiss()
                 }
@@ -99,10 +107,14 @@ class DetailMateriActivity : AppCompatActivity() {
         viewModel.tambahExp(body).observe(this) {
             when (it.state) {
                 Resource.State.SUCCESS -> {
-                    finish()
                     val intent = Intent(this@DetailMateriActivity, ChallengesActivity::class.java)
-                    intent.putExtra(ChallengesActivity.MATERI_ID, materiId)
+                    intent.putExtra(ChallengesActivity.MATERI_ID, id)
+                    intent.putExtra(ChallengesActivity.MATERI_NAMA, materiNama)
+                    intent.putExtra(ChallengesActivity.MATERI_LEVEL, materiLevel)
+                    intent.putExtra(ChallengesActivity.MATERI_LEVEL_USER,userMateriLevel)
+                    intent.putExtra(ChallengesActivity.TANTANGAN_LEVEL_USER, userTantanganLevel)
                     startActivity(intent)
+                    finish()
                 }
 
                 Resource.State.ERROR -> {
@@ -113,5 +125,35 @@ class DetailMateriActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+}
+
+class RetrievePDFFromURL(pdfView: PDFView) :
+    AsyncTask<String, Void, InputStream>() {
+
+    private val mypdfView: PDFView = pdfView
+
+    // on below line we are calling our do in background method.
+    override fun doInBackground(vararg params: String?): InputStream? {
+        var inputStream: InputStream? = null
+        try {
+            val url = URL(params[0])
+
+            val urlConnection: HttpURLConnection = url.openConnection() as HttpsURLConnection
+
+            // 200 response code means response is successful
+            if (urlConnection.responseCode == 200) {
+                inputStream = BufferedInputStream(urlConnection.inputStream)
+            }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return null;
+        }
+        return inputStream;
+    }
+
+    override fun onPostExecute(result: InputStream?) {
+        mypdfView.fromStream(result).load()
     }
 }

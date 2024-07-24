@@ -18,7 +18,7 @@
         android:text="Nama Materi"/>
 
     <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfviewer"
+        android:id="@+id/pdfview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_16sdp"

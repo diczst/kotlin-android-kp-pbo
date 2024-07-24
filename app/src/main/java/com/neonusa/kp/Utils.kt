@@ -14,12 +14,10 @@ import java.lang.reflect.Type
 
 object Consts{
     // lokal
-     const val BASE_URL = "http://192.168.43.181/pebeo/public"
-
+//     const val BASE_URL = "http://192.168.43.181/pebeo/public"
     // web hosting
 
-//    const val BASE_URL = "https://neonusa.my.id"
-
+    const val BASE_URL = "https://neonusa.my.id"
 }
 
 fun <T> String?.toModel(classOfT: Class<T>): T? {

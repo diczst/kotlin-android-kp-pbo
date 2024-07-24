@@ -18,6 +18,7 @@ class ChallengesActivity : AppCompatActivity() {
     companion object {
         const val MATERI_ID = "MATERI_ID"
         const val MATERI_LEVEL = "MATERI_LEVEL"
+        const val MATERI_NAMA = "MATERI_NAMA"
         const val MATERI_LEVEL_USER = "MATERI_LEVEL_USER"
         const val TANTANGAN_LEVEL_USER = "TANTANGAN_LEVEL_USER"
     }
@@ -32,6 +33,7 @@ class ChallengesActivity : AppCompatActivity() {
     var materiLevel = 0
     var userMateriLevel = 0
     var userTantanganLevel = 0
+    var materiNama = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +44,18 @@ class ChallengesActivity : AppCompatActivity() {
 
         id = intent.getIntExtra(MATERI_ID,0)
         materiLevel = intent.getIntExtra(MATERI_LEVEL,0)
+        materiNama = intent.getStringExtra(MATERI_NAMA).toString()
         userMateriLevel = intent.getIntExtra(MATERI_LEVEL_USER,0)
         userTantanganLevel = intent.getIntExtra(TANTANGAN_LEVEL_USER,0)
+
+        binding.tvTitle.text = materiNama
 
         tantanganAdapter.materiLevel = materiLevel
         tantanganAdapter.userTantanganLevel = userTantanganLevel
         tantanganAdapter.userMateriLevel = userMateriLevel
+
+        // debug
+//        Toast.makeText(this, "materi level ${materiLevel}\nusertlevel ${userTantanganLevel}\nusermlevel ${userMateriLevel}", Toast.LENGTH_SHORT).show()
 
         binding.rvChallenge.adapter = tantanganAdapter
         binding.rvChallenge.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

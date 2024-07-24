@@ -16,6 +16,12 @@
         android:theme="@style/Theme.KP"
         tools:targetApi="31">
         <activity
+            android:name=".ui.alltantangan.AllChallengesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.allmateri.AllMateriActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.challenge.ChallengesActivity"
             android:exported="false" />
         <activity

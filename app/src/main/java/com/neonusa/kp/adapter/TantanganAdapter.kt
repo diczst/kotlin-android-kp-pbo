@@ -28,6 +28,7 @@ class TantanganAdapter : RecyclerView.Adapter<TantanganAdapter.ViewHolder>() {
     inner class ViewHolder(private val itemBinding: ItemChallengeBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(item: Tantangan, position: Int) {
             itemBinding.apply {
+                tvNo.text = "${position + 1}"
                 tvName.text = item.nama
                 if(userTantanganLevel >= item.level!! || (userMateriLevel > materiLevel)){
                     layoutMain.alpha = 1F

@@ -5,10 +5,14 @@ import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import com.afollestad.materialdialogs.MaterialDialog
+import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.MainActivity
 import com.neonusa.kp.R
 import com.neonusa.kp.databinding.ActivityQuizFinishBinding
+import com.neonusa.kp.ui.login.LoginActivity
+import com.techiness.progressdialoglibrary.ProgressDialog
 
 class ChallengeFinishActivity : AppCompatActivity() {
     companion object {
@@ -21,13 +25,30 @@ class ChallengeFinishActivity : AppCompatActivity() {
         const val UNLOCK_STATUS = "UNLOCK_STATUS"
     }
 
+    // kasih jeda antara 3-5 detik biar data terupdate dengan full
+    // karena kalau pindah ke halaman utama dair halaman ini terlalu cepat
+    // data level user tidak tersimpan
+
+    // halaman ini bisa cepat2 karena tidak ada viewmodel untuk load data
+    // jadi dibatasi secara manual
+
     private lateinit var binding: ActivityQuizFinishBinding
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var progressDialog: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizFinishBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        progressDialog = ProgressDialog(this)
+
+        // jeda 4 detik
+        progressDialog.show()
+        Handler().postDelayed({
+            progressDialog.dismiss()
+        },5000)
+
         val correctAnswerSum = intent.getIntExtra(EXTRA_CORRECT_SUM, 0)
         val incorrectSum = intent.getIntExtra(EXTRA_INCORRECT_SUM,0)
         val unAnswerred = intent.getIntExtra(EXTRA_UNANSWERED,0)
@@ -80,6 +101,7 @@ class ChallengeFinishActivity : AppCompatActivity() {
                         val intent = Intent(this@ChallengeFinishActivity, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
+                        finish()
                     }
                 }
             }

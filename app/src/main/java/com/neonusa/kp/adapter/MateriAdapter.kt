@@ -57,15 +57,21 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                     this.root.setOnClickListener {
                         if(type != "tantangan"){
                             val intent = Intent(root.context, DetailMateriActivity::class.java)
-                            intent.putExtra(DetailMateriActivity.MATERI_ID, item.id)
-                            intent.putExtra(ChallengesActivity.MATERI_LEVEL, item.level)
-                            root.context.startActivity(intent)
-                        } else {
-                            val intent = Intent(root.context, ChallengesActivity::class.java)
                             intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
+                            intent.putExtra(ChallengesActivity.MATERI_NAMA, item.nama)
                             intent.putExtra(ChallengesActivity.MATERI_LEVEL, item.level)
                             intent.putExtra(ChallengesActivity.MATERI_LEVEL_USER,userMateriLevel)
                             intent.putExtra(ChallengesActivity.TANTANGAN_LEVEL_USER, userTantanganLevel)
+                            root.context.startActivity(intent)
+                        } else {
+                            // bertipe tantangan
+                            val intent = Intent(root.context, ChallengesActivity::class.java)
+                            intent.putExtra(ChallengesActivity.MATERI_ID, item.id)
+                            intent.putExtra(ChallengesActivity.MATERI_NAMA, item.nama)
+                            intent.putExtra(ChallengesActivity.MATERI_LEVEL, item.level)
+                            intent.putExtra(ChallengesActivity.MATERI_LEVEL_USER,userMateriLevel)
+                            intent.putExtra(ChallengesActivity.TANTANGAN_LEVEL_USER, userTantanganLevel)
+                            intent
                             root.context.startActivity(intent)
                         }
                     }

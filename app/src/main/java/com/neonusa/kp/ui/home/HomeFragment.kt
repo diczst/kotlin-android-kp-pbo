@@ -1,17 +1,20 @@
 package com.neonusa.kp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.neonusa.kp.Kotpreference
 import com.neonusa.kp.adapter.MateriAdapter
 import com.neonusa.kp.data.network.Resource
 import com.neonusa.kp.databinding.FragmentHomeBinding
+import com.neonusa.kp.ui.allmateri.AllMateriActivity
+import com.neonusa.kp.ui.alltantangan.AllChallengesActivity
+import com.neonusa.kp.ui.challenge.ChallengesActivity
 import com.techiness.progressdialoglibrary.ProgressDialog
 
 class HomeFragment : Fragment() {
@@ -46,22 +49,32 @@ class HomeFragment : Fragment() {
         binding.rvMateri.adapter = materiAdapter
         binding.rvTantangan.adapter = tantanganAdapter
 
-        viewModel.getDataUser(Kotpreference.getUser()?.id.toString()).observe(requireActivity()){
-            when(it.state){
-                Resource.State.SUCCESS -> {
-                    val data = it.data
-                    materiAdapter.userMateriLevel = data?.level_materi!!
+//        viewModel.getDataUser(Kotpreference.getUser()?.id.toString()).observe(requireActivity()){
+//            when(it.state){
+//                Resource.State.SUCCESS -> {
+//                    val data = it.data
+//                    materiAdapter.userMateriLevel = data?.level_materi!!
+//
+//                    tantanganAdapter.userMateriLevel = data.level_materi!!
+//                    tantanganAdapter.userTantanganLevel = data.level_tantangan!!
+//                }
+//
+//                Resource.State.ERROR -> {
+//                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+//                }
+//                Resource.State.LOADING -> {
+//                }
+//            }
+//        }
 
-                    tantanganAdapter.userMateriLevel = data.level_materi!!
-                    tantanganAdapter.userTantanganLevel = data.level_tantangan!!
-                }
+        binding.tvSeeAll.setOnClickListener {
+            val intent = Intent(root.context, AllMateriActivity::class.java)
+            root.context.startActivity(intent)
+        }
 
-                Resource.State.ERROR -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                }
-                Resource.State.LOADING -> {
-                }
-            }
+        binding.tvSeeAllChallenges.setOnClickListener {
+            val intent = Intent(root.context, AllChallengesActivity::class.java)
+            root.context.startActivity(intent)
         }
 
         getInformasiUser()
@@ -70,40 +83,68 @@ class HomeFragment : Fragment() {
     }
 
     fun getInformasiUser(){
-        viewModel.getDataUser(Kotpreference.getUser()?.id.toString()).observe(requireActivity()){
-            when(it.state){
-                Resource.State.SUCCESS -> {
-                    val data = it.data
-                    binding.layoutHomeMember.tvExp.text = data?.exp.toString()
-                    binding.layoutHomeMember.tvName.text = data?.nama_lengkap.toString()
+        val user = Kotpreference.getUser()
 
-                    if(data?.exp!! < 300){
-                        binding.layoutHomeMember.tvRank.text = "Perunggu"
-                    }
+        materiAdapter.userMateriLevel = user?.level_materi!!
+        materiAdapter.userTantanganLevel = user.level_tantangan!!
 
-                    if(data.exp in 300..700){
-                        binding.layoutHomeMember.tvRank.text = "Perak"
-                    }
+        tantanganAdapter.userMateriLevel = user.level_materi!!
+        tantanganAdapter.userTantanganLevel = user.level_tantangan!!
 
-                    if(data.exp in 701..1000){
-                        binding.layoutHomeMember.tvRank.text = "Emas"
-                    }
-                }
+        binding.layoutHomeMember.tvExp.text =  user?.exp.toString()
+        binding.layoutHomeMember.tvName.text =  user?.nama_lengkap.toString()
 
-                Resource.State.ERROR -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                }
-                Resource.State.LOADING -> {
-//                    progressDialog.show()
-                }
-            }
+        if(user.exp!! < 300){
+            binding.layoutHomeMember.tvRank.text = "Perunggu"
         }
+
+        if(user.exp in 300..700){
+            binding.layoutHomeMember.tvRank.text = "Perak"
+        }
+
+        if(user.exp in 701..1000){
+            binding.layoutHomeMember.tvRank.text = "Emas"
+        }
+
+
     }
+
+//    fun getInformasiUser(){
+//        viewModel.getDataUser(Kotpreference.getUser()?.id.toString()).observe(requireActivity()){
+//            when(it.state){
+//                Resource.State.SUCCESS -> {
+//                    val data = it.data
+//                    binding.layoutHomeMember.tvExp.text = data?.exp.toString()
+//                    binding.layoutHomeMember.tvName.text = data?.nama_lengkap.toString()
+//
+//                    if(data?.exp!! < 300){
+//                        binding.layoutHomeMember.tvRank.text = "Perunggu"
+//                    }
+//
+//                    if(data.exp in 300..700){
+//                        binding.layoutHomeMember.tvRank.text = "Perak"
+//                    }
+//
+//                    if(data.exp in 701..1000){
+//                        binding.layoutHomeMember.tvRank.text = "Emas"
+//                    }
+//                }
+//
+//                Resource.State.ERROR -> {
+//                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+//                }
+//                Resource.State.LOADING -> {
+////                    progressDialog.show()
+//                }
+//            }
+//        }
+//    }
 
     private fun getMateriDanTantangan() {
         viewModel.getDataMateri().observe(requireActivity()) {
             when (it.state) {
                 Resource.State.SUCCESS -> {
+                    //todo: tambahin halaman lihat semua tantangan
                     val data = it.data?.take(9) ?: emptyList()
 
                     tantanganAdapter.addItems(data)
@@ -124,7 +165,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-
-
 }

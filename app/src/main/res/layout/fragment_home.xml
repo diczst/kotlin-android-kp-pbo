@@ -35,14 +35,14 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lihat Semua"
-                    android:textStyle="bold"
-                    android:textColor="@color/purple_500"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_12sdp"
-                    />
+                    android:text="Lihat Semua"
+                    android:textColor="@color/purple_500"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -58,15 +58,31 @@
                 tools:itemCount="6"
                 tools:listitem="@layout/item_home_materi" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tantangan"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginHorizontal="@dimen/_12sdp"/>
+                android:layout_marginTop="@dimen/_4sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:text="Tantangan"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_see_all_challenges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:text="Lihat Semua"
+                    android:textColor="@color/purple_500"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_tantangan"
@@ -76,6 +92,7 @@
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_48sdp"
                 app:spanCount="3"
                 tools:itemCount="6"
                 tools:listitem="@layout/item_home_materi" />

@@ -271,7 +271,18 @@ class DataRepository {
             apiService.getSoal(id).let {
                 if (it.isSuccessful) {
                     val body = it.body()
-                    val data = body?.data
+                    var data = body?.data
+
+                    // jika sudah percobaan ketiga maka acak soal
+                    // kenapa di acak?
+                    // agar lebih menantang dan aplikasi lebih dinamis (tidak statis)
+                    // todo : ランダム
+                    if(Kotpreference.tryCount == 3) {
+                        data = body?.data?.shuffled()?.take(5)
+                    } else {
+                        data = data?.take(5)
+                    }
+
                     if(data != null){
                         emit(Resource.success(data))
                     } else {
